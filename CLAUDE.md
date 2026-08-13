@@ -31,8 +31,8 @@ sueltas, herramientas desconectadas) con un sistema integrado.
 
 ### El problema que resuelve
 
-Los vendedores ambulantes visitan negocios como delis, bodegas y supermercados para ofrecer
-productos y registrar pedidos. Antes de SyncDistro, esta información se registraba de forma
+Los vendedores ambulantes visitan negocios como tiendas, abarroterías, minimarkets y supermercados
+para ofrecer productos y registrar pedidos. Antes de SyncDistro, esta información se registraba de forma
 manual o en herramientas dispersas, causando:
 
 - Duplicación de registros de clientes.
@@ -145,6 +145,9 @@ El sitio es **bilingüe**: español en la raíz, inglés bajo `/en/`.
 
 Convenciones importantes:
 
+- **Terminología local:** el mercado es Guatemala/Centroamérica. Usar **tiendas, abarroterías,
+  minimarkets, depósitos, supermercados**. Evitar "delis" y "bodegas" (que aquí significa almacén,
+  no tienda de barrio): suenan a traducción y no es como habla el cliente.
 - **Idiomas:** español (por defecto, en la raíz) e inglés (`/en/`). El mapa de rutas de cada
   idioma está en `ROUTES` (`src/i18n/index.ts`); de ahí salen el menú, el selector `ES`/`EN` y las
   etiquetas `hreflang`. El español no lleva prefijo a propósito: `/privacy` y `/terms` son las URLs

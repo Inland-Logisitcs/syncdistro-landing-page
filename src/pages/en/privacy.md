@@ -22,7 +22,10 @@ By using SyncDistro you accept the practices described in this document.
   is not shared with third parties outside the provision of the service, and it is never sold or
   used for advertising.**
 - Recording a voice note during a visit is **optional**.
-- Location and microphone permissions can be withdrawn at any time from the device settings.
+- The app can use the **device camera** to take photos of the business directly, without opening the
+  gallery. The camera is only accessed when the rep chooses to take a photo, and the captured images
+  are attached to the corresponding customer or visit.
+- Location, microphone and camera permissions can be withdrawn at any time from the device settings.
 
 ## How information is organized: organizations
 
@@ -53,8 +56,9 @@ regional settings (currency and date, time and number formats).
 ### Customer and prospect data
 
 Recorded by users during their commercial activity: legal name, trade name, business type, contact
-person, phone, email address, address, geographic coordinates, tax information (tax ID or EIN) and
-attached tax or commercial documents.
+person, phone, email address, address, geographic coordinates, tax information (tax ID or EIN),
+attached tax or commercial documents, and **photographs of the business**, either taken with the
+device camera or picked from the phone's files.
 
 ### Location data
 
@@ -111,16 +115,19 @@ for advertising purposes, and is not used to build commercial profiles**.
 
 The mobile app requests the following permissions:
 
-| Permission      | What it is used for                                   | Required?                     |
-| --------------- | ----------------------------------------------------- | ----------------------------- |
-| Location        | Tracking the route in progress and geolocating visits | Needed in order to run routes |
-| Microphone      | Recording the conversation or audio note of a visit   | Optional                      |
-| Storage / files | Attaching documents and photos of the business        | Optional                      |
+| Permission      | What it is used for                                             | Required?                     |
+| --------------- | --------------------------------------------------------------- | ----------------------------- |
+| Location        | Tracking the route in progress and geolocating visits           | Needed in order to run routes |
+| Microphone      | Recording the conversation or audio note of a visit             | Optional                      |
+| Camera          | Taking photos of the business from the app, without the gallery | Optional                      |
+| Storage / files | Attaching documents and photos already saved on the device      | Optional                      |
 
 Permissions can be **granted or withdrawn at any time** from the device's operating system settings
 (for example, on Android: _Settings → Apps → SyncDistro → Permissions_). If the location permission
 is withdrawn, route execution and tracking features stop being available; if the microphone
-permission is withdrawn, voice notes cannot be recorded. Everything else keeps working.
+permission is withdrawn, voice notes cannot be recorded; if the camera permission is withdrawn,
+photos cannot be taken from within the app, although images already saved on the device can still be
+attached. Everything else keeps working.
 
 ## Purposes of processing
 

@@ -9,7 +9,7 @@ export const home: HomeCopy = {
   hero: {
     title: 'Everything your reps do in the field, <span class="text-accent">in one place</span>',
     subtitle:
-      'SyncDistro digitizes the routes, visits and orders of the reps who call on delis, corner stores and supermarkets.',
+      'SyncDistro digitizes the routes, visits and orders of the reps who call on neighborhood shops, grocery stores and supermarkets.',
     subtitleExtra:
       'A mobile app for the field team, a web system for whoever supervises them, and orders sent straight to your ERP.',
     ctaPrimary: 'Sign in to the platform',

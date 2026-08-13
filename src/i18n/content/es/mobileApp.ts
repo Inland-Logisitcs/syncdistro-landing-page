@@ -122,7 +122,7 @@ export const mobileApp: MobileAppCopy = {
   permissions: {
     tagline: 'Transparencia',
     title: 'Permisos y privacidad',
-    subtitle: 'La app solicita acceso a la ubicación y al micrófono. Así se usan.',
+    subtitle: 'La app solicita acceso a la ubicación, al micrófono y a la cámara. Así se usan.',
     items: [
       {
         title: 'Ubicación durante la ruta',
@@ -140,9 +140,14 @@ export const mobileApp: MobileAppCopy = {
           'Solo se usa cuando el vendedor decide grabar una nota de voz. La grabación es opcional y la visita puede cerrarse sin ella.',
       },
       {
+        title: 'Cámara',
+        description:
+          'Para tomar fotografías del establecimiento directamente desde la app, sin pasar por la galería. Solo se activa cuando el vendedor decide tomar la foto, y la imagen queda asociada al cliente o a la visita.',
+      },
+      {
         title: 'Revocar los permisos',
         description:
-          'Los permisos de ubicación y micrófono pueden retirarse en cualquier momento desde los ajustes del dispositivo; algunas funciones dejarán de estar disponibles.',
+          'Los permisos de ubicación, micrófono y cámara pueden retirarse en cualquier momento desde los ajustes del dispositivo; algunas funciones dejarán de estar disponibles.',
       },
     ],
   },

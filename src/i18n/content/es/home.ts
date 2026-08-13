@@ -9,7 +9,7 @@ export const home: HomeCopy = {
   hero: {
     title: 'Toda la actividad de tus vendedores en campo, <span class="text-accent">en un solo lugar</span>',
     subtitle:
-      'SyncDistro digitaliza rutas, visitas y pedidos de los vendedores que recorren delis, bodegas y supermercados.',
+      'SyncDistro digitaliza rutas, visitas y pedidos de los vendedores que recorren tiendas, abarroterías y supermercados.',
     subtitleExtra:
       'Una app móvil para el equipo de campo, un sistema web para quien supervisa, y los pedidos enviados directo a tu ERP.',
     ctaPrimary: 'Ingresar a la plataforma',

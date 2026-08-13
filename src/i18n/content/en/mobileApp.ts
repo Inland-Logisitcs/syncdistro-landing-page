@@ -121,7 +121,7 @@ export const mobileApp: MobileAppCopy = {
   permissions: {
     tagline: 'Transparency',
     title: 'Permissions and privacy',
-    subtitle: 'The app asks for location and microphone access. Here is how each one is used.',
+    subtitle: 'The app asks for location, microphone and camera access. Here is how each one is used.',
     items: [
       {
         title: 'Location during the route',
@@ -139,9 +139,14 @@ export const mobileApp: MobileAppCopy = {
           'Only used when the rep chooses to record a voice note. Recording is optional and the visit can be closed without it.',
       },
       {
+        title: 'Camera',
+        description:
+          'To take photos of the business directly from the app, without going through the gallery. It is only activated when the rep chooses to take the photo, and the image stays attached to the customer or the visit.',
+      },
+      {
         title: 'Revoking permissions',
         description:
-          'Location and microphone permissions can be withdrawn at any time from the device settings; some features will stop being available.',
+          'Location, microphone and camera permissions can be withdrawn at any time from the device settings; some features will stop being available.',
       },
     ],
   },

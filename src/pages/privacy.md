@@ -24,8 +24,11 @@ Al usar SyncDistro aceptas las prácticas descritas en este documento.
   pertenece el vendedor. **No se comparte con terceros ajenos a la prestación del servicio y no
   se vende ni se usa con fines publicitarios.**
 - Grabar una nota de voz durante una visita es **opcional**.
-- Los permisos de ubicación y micrófono pueden retirarse en cualquier momento desde los ajustes
-  del dispositivo.
+- La app puede usar la **cámara del dispositivo** para tomar fotografías del establecimiento
+  directamente, sin abrir la galería. Solo se accede a la cámara cuando el vendedor decide tomar
+  una foto, y las imágenes capturadas se asocian al cliente o a la visita correspondiente.
+- Los permisos de ubicación, micrófono y cámara pueden retirarse en cualquier momento desde los
+  ajustes del dispositivo.
 
 ## Cómo se organiza la información: organizaciones
 
@@ -57,7 +60,9 @@ como su configuración regional (moneda y formatos de fecha, hora y números).
 
 Registrados por los usuarios durante su actividad comercial: nombre legal, nombre comercial, tipo
 de negocio, persona de contacto, teléfono, correo electrónico, dirección, coordenadas geográficas,
-información fiscal (tax ID o EIN) y documentos fiscales o comerciales adjuntos.
+información fiscal (tax ID o EIN), documentos fiscales o comerciales adjuntos y **fotografías del
+establecimiento**, tomadas con la cámara del dispositivo o seleccionadas desde los archivos del
+teléfono.
 
 ### Datos de ubicación
 
@@ -117,17 +122,20 @@ comerciales**.
 
 La aplicación móvil solicita los siguientes permisos:
 
-| Permiso                   | Para qué se usa                                                 | ¿Obligatorio?                 |
-| ------------------------- | --------------------------------------------------------------- | ----------------------------- |
-| Ubicación                 | Seguimiento de la ruta en progreso y geolocalización de visitas | Necesario para ejecutar rutas |
-| Micrófono                 | Grabar la conversación o la nota de audio de una visita         | Opcional                      |
-| Almacenamiento / archivos | Adjuntar documentos y fotografías del establecimiento           | Opcional                      |
+| Permiso                   | Para qué se usa                                                          | ¿Obligatorio?                 |
+| ------------------------- | ------------------------------------------------------------------------ | ----------------------------- |
+| Ubicación                 | Seguimiento de la ruta en progreso y geolocalización de visitas          | Necesario para ejecutar rutas |
+| Micrófono                 | Grabar la conversación o la nota de audio de una visita                  | Opcional                      |
+| Cámara                    | Tomar fotografías del establecimiento desde la app, sin abrir la galería | Opcional                      |
+| Almacenamiento / archivos | Adjuntar documentos y fotografías ya guardadas en el dispositivo         | Opcional                      |
 
 Los permisos pueden **concederse o retirarse en cualquier momento** desde los ajustes del sistema
 operativo del dispositivo (por ejemplo, en Android: _Ajustes → Aplicaciones → SyncDistro →
 Permisos_). Si se retira el permiso de ubicación, las funciones de ejecución y seguimiento de
 rutas dejarán de estar disponibles; si se retira el permiso de micrófono, no será posible grabar
-notas de voz. El resto de las funciones seguirá operando.
+notas de voz; si se retira el permiso de cámara, no será posible tomar fotografías desde la app,
+aunque sí adjuntar imágenes ya guardadas en el dispositivo. El resto de las funciones seguirá
+operando.
 
 ## Finalidades del tratamiento
 
