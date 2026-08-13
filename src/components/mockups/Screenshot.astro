@@ -1,0 +1,40 @@
+---
+/**
+ * Captura del sistema web con variante clara y oscura.
+ *
+ * Muestra una u otra según el tema activo del sitio. El cambio se hace por
+ * clase (`.dark` en <html>), no por `prefers-color-scheme`, para que respete
+ * también el interruptor manual de tema del header.
+ *
+ * Las capturas viven en `src/assets/images/web/` para que Astro las optimice
+ * (webp + srcset). Si se añaden nuevas, colocarlas ahí, no en `public/`.
+ */
+import Image from '~/components/common/Image.astro';
+
+export interface Props {
+  /** Ruta de la captura para tema claro, p. ej. `~/assets/images/web/X.png` */
+  light: string;
+  /** Ruta de la captura para tema oscuro */
+  dark: string;
+  alt: string;
+  /** `eager` para la captura del hero, `lazy` para el resto */
+  loading?: 'eager' | 'lazy';
+  class?: string;
+}
+
+const { light, dark, alt, loading = 'lazy', class: className = '' } = Astro.props;
+
+const common = {
+  widths: [640, 1024, 1440, 2048],
+  sizes: '(max-width: 767px) 100vw, (max-width: 1279px) 90vw, 1024px',
+  layout: 'full-width' as const,
+  format: 'webp' as const,
+  loading,
+  decoding: (loading === 'eager' ? 'auto' : 'async') as 'auto' | 'async',
+};
+---
+
+<div class:list={['w-full', className]}>
+  <Image src={light} alt={alt} class="block h-auto w-full dark:hidden" {...common} />
+  <Image src={dark} alt={alt} class="hidden h-auto w-full dark:block" {...common} />
+</div>

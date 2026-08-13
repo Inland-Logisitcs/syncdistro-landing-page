@@ -1,294 +1,143 @@
-# 🚀 AstroWind
+# SyncDistro — Sitio web
 
-<img src="https://raw.githubusercontent.com/arthelokyo/.github/main/resources/astrowind/lighthouse-score.png" align="right"
-     alt="AstroWind Lighthouse Score" width="100" height="358">
+Sitio web público de **SyncDistro**, la plataforma de gestión comercial en campo (app móvil para
+vendedores + sistema web para administradores y gerentes).
 
-🌟 _Most *starred* & *forked* Astro theme in 2022, 2023, 2024 & 2025_. 🌟
+Construido con **Astro 7** y **Tailwind CSS v4**, partiendo de la plantilla AstroWind.
 
-**AstroWind** is a free and open-source template to make your website using **[Astro v7](https://astro.build/) + [Tailwind CSS v4](https://tailwindcss.com/)**. Ready to start a new project and designed taking into account web best practices.
+El sitio cumple dos funciones:
 
-- ✅ **Production-ready** scores in **PageSpeed Insights** reports.
-- ✅ Integration with **Tailwind CSS v4** supporting **Dark mode** and **_RTL_**.
-- ✅ **Fast and SEO friendly blog** with automatic **RSS feed**, **MDX** support, **Categories & Tags**, **Social Share**, ...
-- ✅ **Image Optimization** (using new **Astro Assets** and **Unpic** for Universal image CDN).
-- ✅ Generation of **project sitemap** based on your routes.
-- ✅ **Open Graph tags** for social media sharing.
-- ✅ **Analytics** built-in Google Analytics integration.
+1. **Landing informativa** del producto.
+2. **Páginas legales** exigidas por Google Play Store (`/privacy` y `/terms`), obligatorias porque
+   la app móvil usa la ubicación GPS del dispositivo.
 
-<br>
+**En producción:** <https://inland-logisitcs.github.io/syncdistro-landing-page/>
 
-![AstroWind Theme Screenshot](https://raw.githubusercontent.com/arthelokyo/.github/main/resources/astrowind/screenshot-astrowind-readme-def-v1.png)
+---
 
-[![arthelokyo](https://custom-icon-badges.demolab.com/badge/made%20by%20-arthelokyo-556bf2?style=flat-square&logo=arthelokyo&logoColor=white&labelColor=101827)](https://github.com/arthelokyo)
-[![License](https://img.shields.io/github/license/arthelokyo/astrowind?style=flat-square&color=dddddd&labelColor=000000)](https://github.com/arthelokyo/astrowind/blob/main/LICENSE.md)
-[![Maintained](https://img.shields.io/badge/maintained%3F-yes-brightgreen.svg?style=flat-square)](https://github.com/arthelokyo)
-[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/arthelokyo/astrowind#contributing)
-[![Known Vulnerabilities](https://snyk.io/test/github/arthelokyo/astrowind/badge.svg?style=flat-square)](https://snyk.io/test/github/arthelokyo/astrowind)
-[![Stars](https://img.shields.io/github/stars/arthelokyo/astrowind.svg?style=social&label=stars&maxAge=86400&color=ff69b4)](https://github.com/arthelokyo/astrowind)
-[![Forks](https://img.shields.io/github/forks/arthelokyo/astrowind.svg?style=social&label=forks&maxAge=86400&color=ff69b4)](https://github.com/arthelokyo/astrowind)
+## Comandos
 
-<br>
+| Comando           | Qué hace                                            |
+| ----------------- | --------------------------------------------------- |
+| `npm install`     | Instala dependencias                                |
+| `npm run dev`     | Servidor de desarrollo en `http://localhost:4321`   |
+| `npm run build`   | Genera el sitio estático en `dist/`                 |
+| `npm run preview` | Sirve `dist/` localmente                            |
+| `npm run check`   | Verifica tipos (astro), ESLint y formato (Prettier) |
+| `npm run fix`     | Corrige ESLint y formato automáticamente            |
 
-<details open>
-<summary>Table of Contents</summary>
+---
 
-- [Demo](#demo)
-- [Upcoming: AstroWind 2.0 – We Need Your Vision!](#-upcoming-astrowind-20--we-need-your-vision)
-- [TL;DR](#tldr)
-- [Getting started](#getting-started)
-  - [Project structure](#project-structure)
-  - [Commands](#commands)
-  - [Configuration](#configuration)
-  - [Deploy](#deploy)
-- [Frequently Asked Questions](#frequently-asked-questions)
-- [Contributing](#contributing)
-- [Acknowledgements](#acknowledgements)
-- [License](#license)
-
-</details>
-
-<br>
-
-## Demo
-
-📌 [https://astrowind.vercel.app/](https://astrowind.vercel.app/)
-
-<br>
-
-## 🔔 Upcoming: AstroWind 2.0 – We Need Your Vision!
-
-We're gearing up for **AstroWind 2.0**, and we want it to be shaped by you, our community. Join the discussion and share your ideas, suggestions, and feedback to help us make AstroWind even better.
-
-[Share Your Feedback in Our Discussion!](https://github.com/arthelokyo/astrowind/discussions/392)
-
-<br>
-
-## TL;DR
-
-```shell
-npm create astro@latest -- --template arthelokyo/astrowind
-```
-
-## Getting started
-
-**AstroWind** tries to give you quick access to creating a website using [Astro v7](https://astro.build/) + [Tailwind CSS v4](https://tailwindcss.com/). It's a free theme which focuses on simplicity, good practices and high performance.
-
-Very little vanilla javascript is used only to provide basic functionality so that each developer decides which framework (React, Vue, Svelte, Solid JS...) to use and how to approach their goals.
-
-> **Note:** Requires **Node.js >= 22.12.0**. The template currently uses `output: 'static'`, but the blog only works with `prerender = true`.
-
-### Project structure
-
-Inside **AstroWind** template, you'll see the following folders and files:
+## Estructura
 
 ```
-/
-├── public/
-│   ├── _headers
-│   └── robots.txt
-├── src/
-│   ├── assets/
-│   │   ├── favicons/
-│   │   ├── images/
-│   │   └── styles/
-│   │       └── tailwind.css
-│   ├── components/
-│   │   ├── blog/
-│   │   ├── common/
-│   │   ├── ui/
-│   │   ├── widgets/
-│   │   │   ├── Header.astro
-│   │   │   └── ...
-│   │   ├── CustomStyles.astro
-│   │   ├── Favicons.astro
-│   │   └── Logo.astro
-│   ├── content.config.ts
-│   ├── data/
-│   │   └── post/
-│   │       ├── post-slug-1.md
-│   │       ├── post-slug-2.mdx
-│   │       └── ...
-│   ├── layouts/
-│   │   ├── Layout.astro
-│   │   ├── MarkdownLayout.astro
-│   │   └── PageLayout.astro
-│   ├── pages/
-│   │   ├── [...blog]/
-│   │   │   ├── [category]/
-│   │   │   ├── [tag]/
-│   │   │   ├── [...page].astro
-│   │   │   └── index.astro
-│   │   ├── index.astro
-│   │   ├── 404.astro
-│   │   ├-- rss.xml.ts
-│   │   └── ...
-│   ├── utils/
-│   ├── config.yaml
-│   └── navigation.ts
-├── package.json
-├── astro.config.ts
-└── ...
+src/
+  pages/
+    index.astro          Landing
+    app-movil.astro      App móvil para vendedores
+    plataforma.astro     Sistema web para administradores
+    integraciones.astro  Integraciones con ERP
+    contacto.astro       Contacto
+    privacy.md           Política de Privacidad  (obligatoria para Play Store)
+    terms.mdx            Términos y Condiciones  (obligatoria para Play Store)
+    404.astro
+  components/
+    mockups/             Marcos de dispositivo y vistas del sistema web
+      PhoneFrame.astro   Marco de teléfono para las capturas de la app móvil
+      BrowserFrame.astro Marco de navegador
+      Screenshot.astro   Captura con variante clara y oscura según el tema
+      HeroShowcase.astro Visual del hero (web + app)
+      web/               Vistas aún placeholder: clientes, visita, pedidos, integración
+    widgets/             Secciones reutilizables (Hero, Features, Content, Steps, FAQs, …)
+  assets/images/web/     Capturas reales del sistema web (Astro las optimiza)
+  links.ts               URLs y correos externos — revisar antes de publicar
+  navigation.ts          Menú de cabecera y pie de página
+  config.yaml            Nombre del sitio, dominio, SEO, idioma
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### Añadir capturas del sistema web
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+1. Guardar el par claro/oscuro en `src/assets/images/web/` (**no** en `public/`: ahí no se
+   optimizan y se publican tal cual, con su peso original).
+2. Usarlas con `<Screenshot light="~/assets/images/web/XLight.png" dark="…Dark.png" alt="…" />`,
+   normalmente dentro de un `<BrowserFrame>`.
+3. Revisar que no contengan datos personales reales (nombres, correos, teléfonos): la página es
+   pública. Los originales sin redactar van a `sin-publicar/`, que está en `.gitignore`.
 
-Any static assets, like images, can be placed in the `public/` directory if they do not require any transformation or in the `assets/` directory if they are imported directly.
+---
 
-[![Edit AstroWind on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://githubbox.com/arthelokyo/astrowind/tree/main) [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/arthelokyo/astrowind)
+## Pendientes antes de publicar
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file `README.md`. Update `src/config.yaml` and contents. Have fun!
+1. **`src/links.ts`** — reemplazar los placeholders por los valores reales:
+   - `PLATFORM_URL` y `SIGNUP_URL` (login del sistema web)
+   - `PLAY_STORE_URL` (ficha de la app en Google Play)
+   - `CONTACT_EMAIL` y `PRIVACY_EMAIL`
+2. **Dominio propio (opcional)** — hoy el sitio vive en la URL de GitHub Pages. Para pasarlo a
+   `syncdistro.com`, ver _Cambiar a un dominio propio_ más abajo.
+3. **Correos de los documentos legales** — `privacy.md` y `terms.mdx` mencionan
+   `privacidad@syncdistro.com` y `contacto@syncdistro.com`; actualizarlos junto con `links.ts`.
+4. **Revisión legal** — los textos de `/privacy` y `/terms` describen el funcionamiento real del
+   producto (ubicación, grabaciones, IA, multi-tenant), pero conviene que los revise quien
+   corresponda antes de enviarlos a Google Play.
+5. **Capturas pendientes del sistema web** — ya son reales el mapa de clientes (hero de la landing
+   y de `/plataforma`) y el detalle de ruta con rastreo GPS. Siguen siendo ilustrativas las vistas
+   de `src/components/mockups/web/`: listado de clientes, detalle de visita, pedidos al ERP y
+   configuración de la integración.
+6. **Planes y precios** — no hay página de planes. Cuando se definan tarifas habrá que crearla
+   (`src/pages/planes.astro`) y volver a enlazarla desde el menú y el pie de página.
 
-<br>
+---
 
-### Commands
+## Despliegue (GitHub Pages)
 
-All commands are run from the root of the project, from a terminal:
+El sitio se publica automáticamente en cada push a `main` mediante
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), que construye el sitio y lo sube
+como artefacto de Pages. También puede lanzarse a mano desde la pestaña **Actions →
+Deploy to GitHub Pages → Run workflow**.
 
-| Command             | Action                                             |
-| :------------------ | :------------------------------------------------- |
-| `npm install`       | Installs dependencies                              |
-| `npm run dev`       | Starts local dev server at `localhost:4321`        |
-| `npm run build`     | Build your production site to `./dist/`            |
-| `npm run preview`   | Preview your build locally, before deploying       |
-| `npm run check`     | Check your project for errors                      |
-| `npm run fix`       | Run Eslint and format codes with Prettier          |
-| `npm run astro ...` | Run CLI commands like `astro add`, `astro preview` |
+### Activación (una sola vez, en GitHub)
 
-<br>
+En el repositorio: **Settings → Pages → Build and deployment → Source: _GitHub Actions_**.
 
-### Configuration
+Sin este paso el workflow falla en el paso `Configure Pages`. No hace falta crear ninguna rama
+`gh-pages`: el artefacto se sirve directamente.
 
-Basic configuration file: `./src/config.yaml`
+### Por qué el sitio vive en un subdirectorio
+
+Al ser un _project site_, GitHub Pages sirve el sitio en
+`https://inland-logisitcs.github.io/syncdistro-landing-page/`, no en la raíz del dominio. Por eso
+`src/config.yaml` declara:
 
 ```yaml
-site:
-  name: 'Example'
-  site: 'https://example.com'
-  base: '/' # Change this if you need to deploy to Github Pages, for example
-  trailingSlash: false # Generate permalinks with or without "/" at the end
-
-  googleSiteVerificationId: false # Or some value,
-
-# Default SEO metadata
-metadata:
-  title:
-    default: 'Example'
-    template: '%s — Example'
-  description: 'This is the default meta description of Example website'
-  robots:
-    index: true
-    follow: true
-  openGraph:
-    site_name: 'Example'
-    images:
-      - url: '~/assets/images/default.png'
-        width: 1200
-        height: 628
-    type: website
-  twitter:
-    handle: '@twitter_user'
-    site: '@twitter_user'
-    cardType: summary_large_image
-
-i18n:
-  language: en
-  textDirection: ltr
-
-apps:
-  blog:
-    isEnabled: true # If the blog will be enabled
-    postsPerPage: 6 # Number of posts per page
-
-    post:
-      isEnabled: true
-      permalink: '/blog/%slug%' # Variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
-      robots:
-        index: true
-
-    list:
-      isEnabled: true
-      pathname: 'blog' # Blog main path, you can change this to "articles" (/articles)
-      robots:
-        index: true
-
-    category:
-      isEnabled: true
-      pathname: 'category' # Category main path /category/some-category, you can change this to "group" (/group/some-category)
-      robots:
-        index: true
-
-    tag:
-      isEnabled: true
-      pathname: 'tag' # Tag main path /tag/some-tag, you can change this to "topics" (/topics/some-category)
-      robots:
-        index: false
-
-    isRelatedPostsEnabled: true # If a widget with related posts is to be displayed below each post
-    relatedPostsCount: 4 # Number of related posts to display
-
-analytics:
-  vendors:
-    googleAnalytics:
-      id: null # or "G-XXXXXXXXXX"
-
-ui:
-  theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"
+site: 'https://inland-logisitcs.github.io'
+base: '/syncdistro-landing-page'
 ```
 
-<br>
+Todos los enlaces internos usan `getPermalink()` y los assets públicos `getAsset()`, así que
+respetan ese `base` automáticamente. **Nunca escribir rutas absolutas a mano** (`href="/privacy"`):
+quedarían fuera del subdirectorio y darían 404. En archivos Markdown que necesiten enlazar a otra
+página del sitio, usar `.mdx` e importar `getPermalink` (ver `src/pages/terms.mdx`).
 
-#### Customize Design
+El workflow compara el `base` de `src/config.yaml` con el que informa GitHub Pages y falla con un
+mensaje claro si dejan de coincidir (por ejemplo, si se renombra el repositorio).
 
-With Tailwind CSS v4, all configuration is CSS-first. To customize Font families, Colors or more Elements refer to the following files:
+### Cambiar a un dominio propio
 
-- `src/components/CustomStyles.astro` — CSS variables for colors and fonts
-- `src/assets/styles/tailwind.css` — Tailwind theme tokens (`@theme`), custom utilities (`@utility`), and plugins
+1. En `src/config.yaml`: `site: 'https://syncdistro.com'` y `base: '/'`.
+2. Crear `public/CNAME` con una sola línea: `syncdistro.com`.
+3. En **Settings → Pages → Custom domain**, indicar el dominio y apuntar el DNS a GitHub Pages.
 
-### Deploy
+---
 
-#### Deploy to production (manual)
+## Imágenes
 
-You can create an optimized production build with:
+- **Capturas de la app móvil**: `public/img/app/*.jpeg`, usadas mediante
+  `<PhoneFrame src="/img/app/appN.jpeg" />`.
+- **Capturas del sistema web**: `src/assets/images/web/*.png`, en pares `…Light` / `…Dark`, usadas
+  mediante `<Screenshot light dark alt />`. Astro las convierte a WebP con `srcset`.
+- **Imagen Open Graph**: `src/assets/images/default.png` (1200×628).
+- **Favicons**: `src/assets/favicons/`.
 
-```shell
-npm run build
-```
+---
 
-Now, your website is ready to be deployed. All generated files are located at
-`dist` folder, which you can deploy the folder to any hosting service you
-prefer.
-
-#### Deploy to Netlify
-
-Clone this repository on your own GitHub account and deploy it to Netlify:
-
-[![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/arthelokyo/astrowind)
-
-#### Deploy to Vercel
-
-Clone this repository on your own GitHub account and deploy to Vercel:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Farthelokyo%2Fastrowind)
-
-#### Deploy to PandaStack
-
-Clone this repository on your own GitHub account and deploy to PandaStack:
-
-[![Deploy to PandaStack](https://dashboard.pandastack.io/deploy-button.svg)](https://dashboard.pandastack.io/deploy?repo=arthelokyo/astrowind&type=static&buildCmd=npm+run+build&outputDir=dist)
-
-<br>
-
-## Contributing
-
-If you have any ideas, suggestions or find any bugs, feel free to open a discussion, an issue or create a pull request.
-That would be very useful for all of us and we would be happy to listen and take action.
-
-## Acknowledgements
-
-Initially created by **Arthelokyo** and maintained by a community of [contributors](https://github.com/arthelokyo/astrowind/graphs/contributors).
-
-## License
-
-**AstroWind** is licensed under the MIT license — see the [LICENSE](./LICENSE.md) file for details.
+Basado en [AstroWind](https://github.com/arthelokyo/astrowind) (licencia MIT, ver `LICENSE.md`).

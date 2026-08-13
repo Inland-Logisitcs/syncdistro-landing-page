@@ -1,7 +1,7 @@
 {
   "name": "syncdistro-web",
-  "version": "1.0.0-beta.65",
-  "description": "AstroWind: A free template using Astro 7 and Tailwind CSS v4. Astro starter theme.",
+  "version": "1.0.0",
+  "description": "Sitio web público de SyncDistro: landing page y páginas legales (Astro + Tailwind CSS).",
   "type": "module",
   "engines": {
     "node": ">=22.22.3"
@@ -21,10 +21,6 @@
     "fix:prettier": "prettier -w ."
   },
   "dependencies": {
-    "@astro-community/astro-embed-twitter": "^0.5.11",
-    "@astro-community/astro-embed-vimeo": "^0.3.12",
-    "@astro-community/astro-embed-youtube": "^0.5.10",
-    "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
     "astro": "^7.2.0",
     "astro-icon": "^1.1.5",
@@ -39,7 +35,6 @@
     "@astrojs/mdx": "^7.0.5",
     "@astrojs/partytown": "^2.1.7",
     "@eslint/js": "^10.0.1",
-    "@iconify-json/flat-color-icons": "^1.2.3",
     "@iconify-json/tabler": "^1.2.38",
     "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.3",

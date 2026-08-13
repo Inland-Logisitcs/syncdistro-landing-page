@@ -1,182 +1,98 @@
-import { getPermalink, getBlogPermalink, getAsset } from './utils/permalinks';
+import { getHomePermalink, getPermalink } from './utils/permalinks';
+import { CONTACT_EMAIL, PLATFORM_URL, PLAY_STORE_URL } from './links';
+import type { CallToAction } from './types';
 
 export const headerData = {
   links: [
     {
-      text: 'Homes',
+      text: 'Producto',
       links: [
         {
-          text: 'SaaS',
-          href: getPermalink('/homes/saas'),
+          text: 'Cómo funciona',
+          href: `${getHomePermalink()}#como-funciona`,
         },
         {
-          text: 'Startup',
-          href: getPermalink('/homes/startup'),
+          text: 'Funcionalidades',
+          href: `${getHomePermalink()}#funcionalidades`,
         },
         {
-          text: 'Mobile App',
-          href: getPermalink('/homes/mobile-app'),
+          text: 'App para vendedores',
+          href: getPermalink('/app-movil'),
         },
         {
-          text: 'Personal',
-          href: getPermalink('/homes/personal'),
+          text: 'Sistema web',
+          href: getPermalink('/plataforma'),
+        },
+        {
+          text: 'Integraciones ERP',
+          href: getPermalink('/integraciones'),
         },
       ],
     },
     {
-      text: 'Pages',
-      links: [
-        {
-          text: 'Features (Anchor Link)',
-          href: getPermalink('/#features'),
-        },
-        {
-          text: 'Services',
-          href: getPermalink('/services'),
-        },
-        {
-          text: 'Pricing',
-          href: getPermalink('/pricing'),
-        },
-        {
-          text: 'About us',
-          href: getPermalink('/about'),
-        },
-        {
-          text: 'Contact',
-          href: getPermalink('/contact'),
-        },
-        {
-          text: 'Terms',
-          href: getPermalink('/terms'),
-        },
-        {
-          text: 'Privacy policy',
-          href: getPermalink('/privacy'),
-        },
-      ],
-    },
-    {
-      text: 'Landing',
-      links: [
-        {
-          text: 'Lead Generation',
-          href: getPermalink('/landing/lead-generation'),
-        },
-        {
-          text: 'Long-form Sales',
-          href: getPermalink('/landing/sales'),
-        },
-        {
-          text: 'Click-Through',
-          href: getPermalink('/landing/click-through'),
-        },
-        {
-          text: 'Product Details (or Services)',
-          href: getPermalink('/landing/product'),
-        },
-        {
-          text: 'Coming Soon or Pre-Launch',
-          href: getPermalink('/landing/pre-launch'),
-        },
-        {
-          text: 'Subscription',
-          href: getPermalink('/landing/subscription'),
-        },
-      ],
-    },
-    {
-      text: 'Blog',
-      links: [
-        {
-          text: 'Blog List',
-          href: getBlogPermalink(),
-        },
-        {
-          text: 'Article',
-          href: getPermalink('get-started-website-with-astro-tailwind-css', 'post'),
-        },
-        {
-          text: 'Article (with MDX)',
-          href: getPermalink('markdown-elements-demo-post', 'post'),
-        },
-        {
-          text: 'Category Page',
-          href: getPermalink('tutorials', 'category'),
-        },
-        {
-          text: 'Tag Page',
-          href: getPermalink('astro', 'tag'),
-        },
-      ],
-    },
-    {
-      text: 'Widgets',
-      href: '#',
+      text: 'Contacto',
+      href: getPermalink('/contacto'),
     },
   ],
-  actions: [{ text: 'Download', href: 'https://github.com/arthelokyo/astrowind', target: '_blank' }],
+  actions: [
+    {
+      text: 'Ingresar',
+      href: PLATFORM_URL,
+      target: '_blank',
+      variant: 'primary',
+      icon: 'tabler:login',
+    },
+  ] as CallToAction[],
 };
 
 export const footerData = {
   links: [
     {
-      title: 'Product',
+      title: 'Producto',
       links: [
-        { text: 'Features', href: '#' },
-        { text: 'Security', href: '#' },
-        { text: 'Team', href: '#' },
-        { text: 'Enterprise', href: '#' },
-        { text: 'Customer stories', href: '#' },
-        { text: 'Pricing', href: '#' },
-        { text: 'Resources', href: '#' },
+        { text: 'Cómo funciona', href: `${getHomePermalink()}#como-funciona` },
+        { text: 'Funcionalidades', href: `${getHomePermalink()}#funcionalidades` },
+        { text: 'App para vendedores', href: getPermalink('/app-movil') },
+        { text: 'Sistema web', href: getPermalink('/plataforma') },
+        { text: 'Integraciones ERP', href: getPermalink('/integraciones') },
       ],
     },
     {
-      title: 'Platform',
+      title: 'Acceso',
       links: [
-        { text: 'Developer API', href: '#' },
-        { text: 'Partners', href: '#' },
-        { text: 'Atom', href: '#' },
-        { text: 'Electron', href: '#' },
-        { text: 'AstroWind Desktop', href: '#' },
+        { text: 'Ingresar a la plataforma', href: PLATFORM_URL },
+        { text: 'Descargar en Google Play', href: PLAY_STORE_URL },
+        { text: 'Solicitar una demo', href: getPermalink('/contacto') },
       ],
     },
     {
-      title: 'Support',
+      title: 'Soporte',
       links: [
-        { text: 'Docs', href: '#' },
-        { text: 'Community Forum', href: '#' },
-        { text: 'Professional Services', href: '#' },
-        { text: 'Skills', href: '#' },
-        { text: 'Status', href: '#' },
+        { text: 'Contacto', href: getPermalink('/contacto') },
+        { text: 'Preguntas frecuentes', href: `${getHomePermalink()}#faqs` },
+        { text: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
       ],
     },
     {
-      title: 'Company',
+      title: 'Legal',
       links: [
-        { text: 'About', href: '#' },
-        { text: 'Blog', href: '#' },
-        { text: 'Careers', href: '#' },
-        { text: 'Press', href: '#' },
-        { text: 'Inclusion', href: '#' },
-        { text: 'Social Impact', href: '#' },
-        { text: 'Shop', href: '#' },
+        { text: 'Política de Privacidad', href: getPermalink('/privacy') },
+        { text: 'Términos y Condiciones', href: getPermalink('/terms') },
+        // El ancla se concatena aparte: si se pasa dentro de getPermalink(), la
+        // barra final acabaría después del fragmento (`/privacy#ubicacion/`).
+        { text: 'Uso de la ubicación', href: `${getPermalink('/privacy')}#ubicacion` },
       ],
     },
   ],
   secondaryLinks: [
-    { text: 'Terms', href: getPermalink('/terms') },
-    { text: 'Privacy Policy', href: getPermalink('/privacy') },
+    { text: 'Términos y Condiciones', href: getPermalink('/terms') },
+    { text: 'Política de Privacidad', href: getPermalink('/privacy') },
   ],
   socialLinks: [
-    { ariaLabel: 'X', icon: 'tabler:brand-x', href: '#' },
-    { ariaLabel: 'Instagram', icon: 'tabler:brand-instagram', href: '#' },
-    { ariaLabel: 'Facebook', icon: 'tabler:brand-facebook', href: '#' },
-    { ariaLabel: 'RSS', icon: 'tabler:rss', href: getAsset('/rss.xml') },
-    { ariaLabel: 'Github', icon: 'tabler:brand-github', href: 'https://github.com/arthelokyo/astrowind' },
+    { ariaLabel: 'Correo', icon: 'tabler:mail', href: `mailto:${CONTACT_EMAIL}` },
+    { ariaLabel: 'Google Play', icon: 'tabler:brand-google-play', href: PLAY_STORE_URL },
   ],
   footNote: `
-    Made by <a class="text-blue-600 underline dark:text-muted" href="https://github.com/arthelokyo"> Arthelokyo</a> · All rights reserved.
+    SyncDistro · Gestión comercial en campo · Todos los derechos reservados.
   `,
 };

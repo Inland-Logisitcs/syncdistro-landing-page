@@ -1,0 +1,91 @@
+---
+/**
+ * Placeholder: formulario de configuración de una integración ERP,
+ * con mapeo de campos y prueba de conexión.
+ */
+const fields = [
+  { label: 'Nombre de la integración', value: 'ERP de producción' },
+  { label: 'Endpoint de consulta de productos', value: 'https://erp.ejemplo.com/api/products', mono: true },
+  { label: 'Endpoint de creación de pedidos', value: 'https://erp.ejemplo.com/api/orders', mono: true },
+  { label: 'API key', value: '••••••••••••••••', mono: true },
+];
+
+const mapping = [
+  { from: 'sku', to: 'código' },
+  { from: 'title', to: 'nombre' },
+  { from: 'category.name', to: 'categoría' },
+  { from: 'list_price', to: 'precio base' },
+];
+---
+
+<div class="grid gap-4 p-4 sm:p-5 md:grid-cols-5">
+  <div class="md:col-span-3">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-[0.65rem] font-semibold tracking-wide text-gray-500 uppercase dark:text-slate-400">
+          Integraciones
+        </p>
+        <p class="text-sm font-bold">Configuración del ERP</p>
+      </div>
+      <span
+        class="flex items-center gap-1.5 rounded-full bg-emerald-100 px-2 py-0.5 text-[0.6rem] font-semibold text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300"
+      >
+        <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span> Activa
+      </span>
+    </div>
+
+    <div class="mt-3 space-y-2.5">
+      {
+        fields.map(({ label, value, mono }) => (
+          <label class="block">
+            <span class="text-[0.65rem] font-medium text-muted">{label}</span>
+            <span
+              class:list={[
+                'mt-1 block truncate rounded-md border border-gray-200 px-2.5 py-1.5 text-xs dark:border-slate-700',
+                mono ? 'font-mono text-[0.7rem]' : '',
+              ]}
+            >
+              {value}
+            </span>
+          </label>
+        ))
+      }
+    </div>
+
+    <div class="mt-3 flex gap-2">
+      <span class="rounded-md bg-primary px-3 py-1.5 text-[0.7rem] font-semibold text-white">Guardar</span>
+      <span
+        class="rounded-md border border-gray-300 px-3 py-1.5 text-[0.7rem] font-semibold text-muted dark:border-slate-600"
+        >Probar conexión</span
+      >
+    </div>
+  </div>
+
+  <div class="md:col-span-2">
+    <div class="rounded-lg border border-gray-200 p-3 dark:border-slate-700">
+      <p class="text-[0.65rem] font-semibold tracking-wide text-gray-500 uppercase dark:text-slate-400">
+        Mapeo de productos
+      </p>
+      <div class="mt-2 space-y-1.5">
+        {
+          mapping.map(({ from, to }) => (
+            <div class="flex items-center gap-1.5 text-[0.7rem]">
+              <span class="flex-1 truncate rounded bg-gray-100 px-1.5 py-1 font-mono dark:bg-slate-800">{from}</span>
+              <span class="text-muted">→</span>
+              <span class="flex-1 truncate rounded bg-primary/10 px-1.5 py-1 font-medium text-primary dark:bg-primary/20">
+                {to}
+              </span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="mt-3 rounded-lg bg-emerald-50 p-3 dark:bg-emerald-900/20">
+      <p class="text-[0.7rem] font-semibold text-emerald-700 dark:text-emerald-300">Conexión verificada</p>
+      <p class="mt-1 text-[0.65rem] text-emerald-700/80 dark:text-emerald-300/80">
+        Catálogo de productos y creación de pedidos responden correctamente.
+      </p>
+    </div>
+  </div>
+</div>

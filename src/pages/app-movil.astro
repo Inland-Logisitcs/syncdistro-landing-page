@@ -1,0 +1,268 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+import Hero from '~/components/widgets/Hero.astro';
+import Note from '~/components/widgets/Note.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import Content from '~/components/widgets/Content.astro';
+import Steps2 from '~/components/widgets/Steps2.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+import PhoneFrame from '~/components/mockups/PhoneFrame.astro';
+
+import { getPermalink } from '~/utils/permalinks';
+import { PLAY_STORE_URL } from '~/links';
+
+const metadata = {
+  title: 'App móvil para vendedores',
+  description:
+    'La app de SyncDistro para vendedores en campo: rutas asignadas, registro de visitas, notas de voz con transcripción automática y generación de pedidos.',
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero ************************** -->
+
+  <Hero
+    tagline="App para vendedores"
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Descargar en Google Play',
+        href: PLAY_STORE_URL,
+        target: '_blank',
+        icon: 'tabler:brand-google-play',
+      },
+      { text: 'Ver el sistema web', href: getPermalink('/plataforma') },
+    ]}
+  >
+    <Fragment slot="title">La ruta del día, en el bolsillo del vendedor</Fragment>
+
+    <Fragment slot="subtitle">
+      Consultar las paradas asignadas, registrar cada visita con su resultado, dejar una nota de voz y armar el pedido
+      antes de subirse al carro para la siguiente.
+    </Fragment>
+
+    <Fragment slot="image">
+      <div class="flex items-end justify-center gap-4 sm:gap-6">
+        <PhoneFrame
+          src="/img/app/app1.jpeg"
+          alt="Listado de rutas asignadas en la app móvil de SyncDistro"
+          class="w-1/3 max-w-[13rem]"
+          caption="Rutas asignadas"
+        />
+        <PhoneFrame
+          src="/img/app/app2.jpeg"
+          alt="Ruta activa con la parada actual en la app móvil de SyncDistro"
+          class="w-1/3 max-w-[13rem]"
+          caption="Ruta en progreso"
+        />
+        <PhoneFrame
+          src="/img/app/app3.jpeg"
+          alt="Ruta optimizada dibujada sobre el mapa en la app móvil de SyncDistro"
+          class="hidden w-1/3 max-w-[13rem] sm:block"
+          caption="Orden de visita en el mapa"
+        />
+      </div>
+    </Fragment>
+  </Hero>
+
+  <!-- Note ************************** -->
+
+  <Note
+    icon="tabler:device-mobile"
+    title="Funciona en dos modos:"
+    description="con rutas y ERP para la operación completa, o de forma autónoma solo con clientes y pedidos."
+  />
+
+  <!-- Funcionalidades *************** -->
+
+  <Features2
+    tagline="En la app"
+    title="Lo que el vendedor puede hacer"
+    columns={3}
+    items={[
+      {
+        title: 'Ver la ruta asignada',
+        description:
+          'Detalle de la ruta, orden sugerido de visitas y ubicación de cada cliente en el mapa, con navegación a la parada actual.',
+        icon: 'tabler:route',
+      },
+      {
+        title: 'Iniciar, pausar y cerrar la ruta',
+        description:
+          'Marcar visitas como iniciadas o completadas, y pausar la ruta cuando surge una actividad ajena a ella.',
+        icon: 'tabler:player-pause',
+      },
+      {
+        title: 'Registrar la visita',
+        description:
+          'Resultado de la visita, notas, observaciones, motivo de no venta y fecha de seguimiento cuando corresponde.',
+        icon: 'tabler:clipboard-check',
+      },
+      {
+        title: 'Grabar una nota de voz',
+        description:
+          'Opcionalmente, grabar la conversación con el cliente o dictar los detalles relevantes al terminar la visita.',
+        icon: 'tabler:microphone',
+      },
+      {
+        title: 'Transcripción automática',
+        description: 'El audio se transcribe detectando el idioma, en español o inglés, y queda asociado a la visita.',
+        icon: 'tabler:file-text',
+      },
+      {
+        title: 'Propuesta con IA',
+        description:
+          'De la transcripción se extraen productos, cantidades, precios acordados, fechas y acciones de seguimiento, listos para revisar.',
+        icon: 'tabler:sparkles',
+      },
+      {
+        title: 'Consultar clientes',
+        description:
+          'Buscar y consultar clientes y posibles clientes de la organización, con sus datos de contacto y ubicación.',
+        icon: 'tabler:building-store',
+      },
+      {
+        title: 'Armar el pedido',
+        description:
+          'Seleccionar productos del catálogo del ERP, confirmar cantidades y precios, y enviar el pedido para su procesamiento.',
+        icon: 'tabler:shopping-cart',
+      },
+      {
+        title: 'En su idioma',
+        description: 'Interfaz en español o inglés, con la moneda y los formatos que configure la organización.',
+        icon: 'tabler:language',
+      },
+    ]}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-primary/5 dark:bg-transparent"></div>
+    </Fragment>
+  </Features2>
+
+  <!-- Flujo de la visita ************ -->
+
+  <Steps2
+    tagline="Una visita, paso a paso"
+    title="Del mostrador al pedido en minutos"
+    subtitle="El vendedor no transcribe nada dos veces: lo que dice en la visita es la base del pedido."
+    items={[
+      {
+        title: 'Llegar a la parada',
+        description: 'La app muestra la parada actual, la dirección del negocio y la siguiente de la lista.',
+      },
+      {
+        title: 'Iniciar la visita',
+        description: 'La hora de inicio y las coordenadas quedan registradas automáticamente.',
+      },
+      {
+        title: 'Grabar la nota',
+        description: 'Al salir, una nota de voz con lo acordado: productos, cantidades, precios y compromisos.',
+      },
+      {
+        title: 'Revisar y confirmar',
+        description:
+          'La app propone el resultado de la visita y las líneas del pedido; el vendedor corrige lo que haga falta y guarda.',
+      },
+    ]}
+  />
+
+  <!-- Clientes ********************** -->
+
+  <Content
+    isReversed
+    tagline="Clientes"
+    title="También sirve sin rutas asignadas"
+    items={[
+      {
+        title: 'Cartera a mano',
+        description:
+          'Clientes activos y posibles clientes con su dirección, teléfono y estado, con búsqueda y filtros.',
+      },
+      {
+        title: 'Alta de nuevos negocios',
+        description: 'Registrar un negocio nuevo durante el recorrido, con su ubicación y datos de contacto.',
+      },
+      {
+        title: 'Pedidos directos',
+        description: 'Generar un pedido para un cliente sin necesidad de una ruta activa ni de una visita programada.',
+      },
+    ]}
+  >
+    <Fragment slot="content">
+      <h3 class="mb-2 text-2xl font-bold tracking-tight sm:text-3xl dark:text-white">Modo autónomo</h3>
+      Útil para equipos que aún no planifican rutas desde la oficina o que trabajan sin ERP conectado.
+    </Fragment>
+
+    <Fragment slot="image">
+      <PhoneFrame
+        src="/img/app/app4.jpeg"
+        alt="Listado de clientes y posibles clientes en la app móvil de SyncDistro"
+        class="mx-auto max-w-[15rem]"
+      />
+    </Fragment>
+  </Content>
+
+  <!-- Ubicación ********************* -->
+
+  <FAQs
+    title="Permisos y privacidad"
+    subtitle="La app solicita acceso a la ubicación y al micrófono. Así se usan."
+    tagline="Transparencia"
+    columns={2}
+    items={[
+      {
+        title: 'Ubicación durante la ruta',
+        description:
+          'Mientras una ruta está en progreso, la posición del vendedor se registra y se transmite al sistema web para mostrar el avance y guardar el recorrido. Al pausar la ruta el seguimiento se suspende, y al completarla o cancelarla se detiene.',
+        icon: 'tabler:map-pin',
+      },
+      {
+        title: 'Ubicación de cada visita',
+        description:
+          'Al iniciar una visita se guardan sus coordenadas, para dejar constancia de dónde se realizó y para poder geolocalizar al cliente.',
+        icon: 'tabler:pin',
+      },
+      {
+        title: 'Micrófono',
+        description:
+          'Solo se usa cuando el vendedor decide grabar una nota de voz. La grabación es opcional y la visita puede cerrarse sin ella.',
+        icon: 'tabler:microphone',
+      },
+      {
+        title: 'Revocar los permisos',
+        description:
+          'Los permisos de ubicación y micrófono pueden retirarse en cualquier momento desde los ajustes del dispositivo; algunas funciones dejarán de estar disponibles.',
+        icon: 'tabler:settings',
+      },
+    ]}
+  />
+
+  <Note
+    icon="tabler:shield-lock"
+    title="Más detalle:"
+    description={`consulta la <a class="underline" href="${getPermalink('/privacy')}">Política de Privacidad</a> para saber qué datos se recopilan, quién puede verlos y por cuánto tiempo se conservan.`}
+  />
+
+  <!-- CTA *************************** -->
+
+  <CallToAction
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Descargar en Google Play',
+        href: PLAY_STORE_URL,
+        target: '_blank',
+        icon: 'tabler:brand-google-play',
+      },
+      { text: 'Solicitar una demo', href: getPermalink('/contacto') },
+    ]}
+  >
+    <Fragment slot="title">Ponla en manos de tu equipo</Fragment>
+    <Fragment slot="subtitle">
+      Los vendedores necesitan una invitación de su organización para iniciar sesión.
+    </Fragment>
+  </CallToAction>
+</Layout>

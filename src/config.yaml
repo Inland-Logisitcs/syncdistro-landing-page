@@ -1,72 +1,54 @@
 site:
-  name: AstroWind
-  site: 'https://astrowind.vercel.app'
-  base: '/'
-  trailingSlash: false
+  name: SyncDistro
+  # Despliegue actual: GitHub Pages como "project site" del repositorio
+  # Inland-Logisitcs/syncdistro-landing-page, servido en
+  # https://inland-logisitcs.github.io/syncdistro-landing-page/
+  #
+  # Si más adelante se usa un dominio propio (p. ej. syncdistro.com), hay que
+  # cambiar `site` a ese dominio, poner `base: '/'` y añadir el archivo
+  # `public/CNAME` con el dominio.
+  site: 'https://inland-logisitcs.github.io'
+  base: '/syncdistro-landing-page'
+  # GitHub Pages sirve cada página como `ruta/index.html`, es decir con barra
+  # final, y redirige con 301 la versión sin barra. Con `true` los enlaces y las
+  # URLs canónicas se generan ya con barra final: se evita ese redirect y el
+  # servidor de desarrollo puede servir la home cuando hay un `base`
+  # (`trailingSlash: false` se traduce a 'never' en Astro y ahí da 404).
+  trailingSlash: true
 
-  googleSiteVerificationId: orcPxI47GSa-cRvY11tUe6iGg2IO_RPvnA1q95iEM3M
+  googleSiteVerificationId: ''
 
-# Default SEO metadata
+# Metadata SEO por defecto
 metadata:
   title:
-    default: AstroWind
-    template: '%s — AstroWind'
-  description: "\U0001F680 Suitable for Startups, Small Business, Sass Websites, Professional Portfolios, Marketing Websites, Landing Pages & Blogs."
+    default: SyncDistro — Gestión comercial en campo
+    template: '%s — SyncDistro'
+  description: 'SyncDistro digitaliza la gestión de clientes, rutas, visitas comerciales y pedidos de los vendedores en campo, e integra las órdenes con tu ERP.'
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: AstroWind
+    site_name: SyncDistro
     images:
       - url: '~/assets/images/default.png'
         width: 1200
         height: 628
     type: website
   twitter:
-    handle: '@arthelokyo'
-    site: '@arthelokyo'
     cardType: summary_large_image
 
 i18n:
-  language: en
+  language: es
   textDirection: ltr
 
 apps:
   blog:
-    isEnabled: true
-    postsPerPage: 6
-
-    post:
-      isEnabled: true
-      permalink: '/%slug%' # Variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
-      robots:
-        index: true
-
-    list:
-      isEnabled: true
-      pathname: 'blog' # Blog main path, you can change this to "articles" (/articles)
-      robots:
-        index: true
-
-    category:
-      isEnabled: true
-      pathname: 'category' # Category main path /category/some-category, you can change this to "group" (/group/some-category)
-      robots:
-        index: true
-
-    tag:
-      isEnabled: true
-      pathname: 'tag' # Tag main path /tag/some-tag, you can change this to "topics" (/topics/some-category)
-      robots:
-        index: false
-
-    isRelatedPostsEnabled: true
-    relatedPostsCount: 4
+    isEnabled: false
 
 analytics:
   vendors:
     googleAnalytics:
-      id: null # or "G-XXXXXXXXXX"
+      id: null # o "G-XXXXXXXXXX"
 
 ui:
-  theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"
+  theme: 'system' # Valores: "system" | "light" | "dark" | "light:only" | "dark:only"

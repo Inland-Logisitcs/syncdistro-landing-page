@@ -91,7 +91,11 @@ export default ({ config: _themeConfig = 'src/config.yaml' } = {}): AstroIntegra
 
           if (hasIntegration && sitemapExists) {
             const robotsTxt = fs.readFileSync(robotsTxtFile, { encoding: 'utf8', flag: 'a+' });
-            const sitemapUrl = new URL(sitemapName, String(new URL(cfg.base, cfg.site)));
+            // `base` tiene que terminar en '/': sin la barra final, resolver
+            // 'sitemap-index.xml' contra él lo trata como un archivo y descarta
+            // el último segmento, dejando la URL sin el subdirectorio del sitio.
+            const baseWithSlash = cfg.base.endsWith('/') ? cfg.base : `${cfg.base}/`;
+            const sitemapUrl = new URL(sitemapName, new URL(baseWithSlash, cfg.site));
             const pattern = /^Sitemap:(.*)$/m;
 
             if (!pattern.test(robotsTxt)) {

@@ -1,0 +1,110 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+import Hero from '~/components/widgets/Hero.astro';
+import Features from '~/components/widgets/Features.astro';
+import Steps2 from '~/components/widgets/Steps2.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+import { getPermalink } from '~/utils/permalinks';
+import { CONTACT_EMAIL, PLATFORM_URL, PLAY_STORE_URL, PRIVACY_EMAIL } from '~/links';
+
+const metadata = {
+  title: 'Contacto',
+  description: 'Escríbenos para solicitar una demo de SyncDistro, resolver dudas o pedir soporte.',
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero ************************** -->
+
+  <Hero
+    tagline="Contacto"
+    actions={[
+      { variant: 'primary', text: 'Escribirnos', href: `mailto:${CONTACT_EMAIL}`, icon: 'tabler:mail' },
+      { text: 'Ingresar a la plataforma', href: PLATFORM_URL, target: '_blank' },
+    ]}
+  >
+    <Fragment slot="title">Hablemos de tu equipo en campo</Fragment>
+    <Fragment slot="subtitle">
+      Cuéntanos cuántos vendedores tienes, cómo registran hoy sus visitas y qué ERP usas. Con eso podemos mostrarte el
+      flujo completo con tus propios datos.
+    </Fragment>
+  </Hero>
+
+  <!-- Canales *********************** -->
+
+  <Features
+    title="Por dónde escribirnos"
+    subtitle="Un solo buzón para ventas, dudas y soporte."
+    columns={2}
+    items={[
+      {
+        title: 'Ventas y demos',
+        description: `Para conocer el producto, pedir una demo o solicitar una propuesta: <a class="text-primary underline dark:text-cyan-300" href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>`,
+        icon: 'tabler:messages',
+      },
+      {
+        title: 'Soporte a usuarios',
+        description: `Si ya usas SyncDistro y necesitas ayuda, escribe desde el correo de tu organización a <a class="text-primary underline dark:text-cyan-300" href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a> indicando el nombre de tu organización.`,
+        icon: 'tabler:lifebuoy',
+      },
+      {
+        title: 'Privacidad y datos',
+        description: `Para consultas sobre datos personales, ubicación o grabaciones: <a class="text-primary underline dark:text-cyan-300" href="mailto:${PRIVACY_EMAIL}">${PRIVACY_EMAIL}</a>`,
+        icon: 'tabler:shield-lock',
+      },
+      {
+        title: 'Integraciones ERP',
+        description: `Si quieres saber si tu ERP puede conectarse, cuéntanos cuál es y revisamos su API. Ver <a class="text-primary underline dark:text-cyan-300" href="${getPermalink('/integraciones')}">integraciones</a>.`,
+        icon: 'tabler:plug-connected',
+      },
+    ]}
+  />
+
+  <!-- Qué esperar ******************* -->
+
+  <Steps2
+    isReversed
+    tagline="Qué sigue"
+    title="Cómo suele ser el primer contacto"
+    subtitle="Sin presentaciones eternas: queremos entender tu operación antes de mostrarte pantallas."
+    items={[
+      {
+        title: 'Nos escribes',
+        description: 'Un correo con el tamaño del equipo y cómo trabajan hoy es suficiente para empezar.',
+      },
+      {
+        title: 'Conversamos',
+        description: 'Una llamada corta para entender rutas, cartera de clientes y el ERP que usas.',
+      },
+      {
+        title: 'Demo con tu contexto',
+        description: 'Te mostramos el flujo con clientes y productos parecidos a los tuyos.',
+      },
+      {
+        title: 'Propuesta',
+        description: 'Alcance, plan recomendado y qué haría falta para poner el sistema en marcha.',
+      },
+    ]}
+  />
+
+  <!-- CTA *************************** -->
+
+  <CallToAction
+    actions={[
+      { variant: 'primary', text: 'Escribir a ventas', href: `mailto:${CONTACT_EMAIL}`, icon: 'tabler:mail' },
+      {
+        text: 'Descargar la app',
+        href: PLAY_STORE_URL,
+        target: '_blank',
+        icon: 'tabler:brand-google-play',
+      },
+    ]}
+  >
+    <Fragment slot="title">¿Listo para empezar?</Fragment>
+    <Fragment slot="subtitle">
+      Si tu organización ya usa SyncDistro, pide a tu administrador que te envíe una invitación por correo.
+    </Fragment>
+  </CallToAction>
+</Layout>

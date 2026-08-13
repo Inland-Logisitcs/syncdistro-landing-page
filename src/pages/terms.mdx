@@ -1,120 +1,201 @@
 ---
-title: 'Terms and Conditions'
+title: 'Términos y Condiciones'
 layout: '~/layouts/MarkdownLayout.astro'
 ---
 
-_Last updated_: January 06, 2023
+import { getPermalink } from '~/utils/permalinks';
 
-Please read these terms and conditions carefully before using Our Service.
+_Última actualización_: 12 de agosto de 2026
 
-## Interpretation and Definitions
+Estos Términos y Condiciones regulan el acceso y uso de **SyncDistro**, plataforma compuesta por un
+sistema web y una aplicación móvil para la gestión de la actividad comercial en campo.
 
-### Interpretation
+Lee estos términos con atención antes de usar el servicio. Al crear una cuenta, aceptar una
+invitación o utilizar la aplicación móvil o el sistema web, aceptas quedar obligado por ellos. Si no
+estás de acuerdo, no uses el servicio.
 
-The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.
+## 1. Definiciones
 
-### Definitions
+- **Servicio:** la plataforma SyncDistro, incluyendo el sistema web y la aplicación móvil.
+- **Organización:** la empresa o entidad que contrata el Servicio y dentro de la cual se registran
+  usuarios, clientes, rutas, visitas y pedidos.
+- **Usuario:** la persona que accede al Servicio con credenciales asociadas a una Organización, con
+  el rol que esta le haya asignado.
+- **Administrador:** el Usuario con permisos para gestionar la Organización, sus usuarios y su
+  configuración.
+- **ERP:** el sistema de gestión empresarial externo (por ejemplo SyncFreight, Odoo o SAP) con el
+  que la Organización decide integrar el Servicio.
+- **Contenido de la Organización:** la información que la Organización y sus Usuarios registran en
+  el Servicio, incluyendo datos de clientes, documentos, audios, transcripciones, visitas y pedidos.
 
-For the purposes of these Terms and Conditions:
+## 2. Descripción del Servicio
 
-- **Affiliate** means an entity that controls, is controlled by or is under common control with a party, where "control" means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.
+SyncDistro es una herramienta especializada en la gestión comercial en campo. Permite:
 
-- **Country** refers to: California, United States
+- Registrar y administrar clientes y posibles clientes, con su ubicación geográfica y sus documentos.
+- Planificar rutas de visita, optimizar el orden de las paradas y asignarlas a un vendedor con fecha
+  de ejecución.
+- Ejecutar rutas desde la aplicación móvil, registrar visitas con su resultado y, de forma opcional,
+  grabar notas de voz que se transcriben y analizan automáticamente.
+- Consultar el catálogo de productos obtenido desde el ERP de la Organización.
+- Construir pedidos a partir de las visitas y enviarlos al ERP de la Organización.
+- Supervisar la actividad comercial desde el sistema web, incluyendo el progreso de las rutas en
+  curso y el historial de visitas.
 
-- **Company** (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to AstroWind LLC, 1 Cupertino, CA 95014.
+## 3. Lo que el Servicio no incluye
 
-- **Device** means any device that can access the Service such as a computer, a cellphone or a digital tablet.
+SyncDistro **no es un sistema de gestión empresarial completo y no reemplaza a un ERP**. El Servicio
+no administra facturación, gestión de inventarios, logística de entregas ni cobro de pedidos. Esos
+procesos son responsabilidad de los sistemas externos que la Organización ya utilice.
 
-- **Service** refers to the Website.
+SyncDistro actúa como interfaz especializada de la operación comercial y entrega los pedidos al ERP
+para su procesamiento posterior.
 
-- **Terms and Conditions** (also referred as "Terms") mean these Terms and Conditions that form the entire agreement between You and the Company regarding the use of the Service. This Terms and Conditions agreement is a Demo.
+## 4. Cuentas, organizaciones y roles
 
-- **Third-party Social Media Service** means any services or content (including data, information, products or services) provided by a third-party that may be displayed, included or made available by the Service.
+1. El acceso al Servicio requiere una cuenta con credenciales personales. Cada Usuario queda
+   asociado a **una única Organización** y solo puede acceder a la información de esa Organización.
+2. Las cuentas se crean por la Organización: el Administrador invita a los colaboradores por correo
+   electrónico asignándoles un rol, y el invitado completa su registro configurando sus credenciales.
+3. El acceso a módulos, vistas y acciones depende del rol asignado. La Organización es responsable
+   de asignar los roles adecuados.
+4. Cada Usuario es responsable de mantener la confidencialidad de sus credenciales y de toda la
+   actividad realizada con ellas. Si sospechas un uso no autorizado, avisa de inmediato al
+   Administrador de tu Organización y a nosotros.
+5. No está permitido compartir credenciales ni permitir que terceros usen tu cuenta.
 
-- **Website** refers to AstroWind, accessible from [https://astrowind.vercel.app](https://astrowind.vercel.app)
+## 5. Responsabilidad sobre el Contenido de la Organización
 
-- **You** means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.
+La Organización es responsable del Contenido que registra en el Servicio, incluyendo su exactitud y
+la legitimidad de su obtención. En particular, la Organización declara que:
 
-## Acknowledgment
+- Cuenta con base legítima para tratar los datos de sus clientes, contactos y colaboradores que
+  registra en el Servicio.
+- Informa a su personal de ventas sobre el uso de la ubicación del dispositivo durante la ejecución
+  de rutas y sobre el registro de la actividad comercial.
+- Obtiene el consentimiento necesario de las personas participantes antes de grabar cualquier
+  conversación, cuando la legislación aplicable lo exija.
+- Utiliza la información de seguimiento de rutas de forma proporcional y conforme a la normativa
+  laboral y de protección de datos que le sea aplicable.
 
-These are the Terms and Conditions governing the use of this Service and the agreement that operates between You and the Company. These Terms and Conditions set out the rights and obligations of all users regarding the use of the Service.
+## 6. Grabaciones de audio y funciones de inteligencia artificial
 
-Your access to and use of the Service is conditioned on Your acceptance of and compliance with these Terms and Conditions. These Terms and Conditions apply to all visitors, users and others who access or use the Service.
+1. Grabar la conversación de una visita o registrar una nota de audio es **opcional**. Una visita
+   puede cerrarse sin ninguna grabación.
+2. La transcripción automática y el análisis de la conversación son **funciones de apoyo**. La
+   información que se extrae automáticamente constituye una **propuesta** que el Usuario debe
+   revisar, corregir o completar antes de guardarla.
+3. Las transcripciones y los análisis pueden contener errores o imprecisiones. El Usuario y la
+   Organización son responsables de validar la información antes de utilizarla para generar un
+   pedido o tomar decisiones comerciales.
 
-By accessing or using the Service You agree to be bound by these Terms and Conditions. If You disagree with any part of these Terms and Conditions then You may not access the Service.
+## 7. Uso de la ubicación del dispositivo
 
-You represent that you are over the age of 18\. The Company does not permit those under 18 to use the Service.
+La aplicación móvil obtiene la ubicación del dispositivo mientras una ruta está en progreso, para
+mostrar el avance de la ruta y registrar la geolocalización de las visitas. Cuando la ruta se pausa,
+la obtención de la ubicación se suspende; cuando se completa o se cancela, se detiene.
 
-Your access to and use of the Service is also conditioned on Your acceptance of and compliance with the Privacy Policy of the Company. Our Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your personal information when You use the Application or the Website and tells You about Your privacy rights and how the law protects You. Please read Our Privacy Policy carefully before using Our Service.
+El detalle de este tratamiento está descrito en la <a href={getPermalink('/privacy')}>Política de
+Privacidad</a>.
 
-## Links to Other Websites
+## 8. Uso aceptable
 
-Our Service may contain links to third-party web sites or services that are not owned or controlled by the Company.
+Al usar el Servicio te comprometes a **no**:
 
-The Company has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services. You further acknowledge and agree that the Company shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the use of or reliance on any such content, goods or services available on or through any such web sites or services.
+- Utilizarlo para fines ilícitos o contrarios a estos términos.
+- Intentar acceder a información de otra Organización o a cuentas de otros Usuarios.
+- Vulnerar, probar o eludir los mecanismos de autenticación, autorización o seguridad.
+- Introducir código malicioso, ni realizar acciones que degraden o interrumpan el funcionamiento del
+  Servicio.
+- Extraer masivamente información del Servicio por medios automatizados no autorizados.
+- Registrar información falsa, difamatoria o que infrinja derechos de terceros.
+- Realizar ingeniería inversa, copiar o crear obras derivadas del Servicio, salvo en la medida que la
+  ley lo permita expresamente.
 
-We strongly advise You to read the terms and conditions and privacy policies of any third-party web sites or services that You visit.
+Podemos suspender el acceso de un Usuario u Organización que incumpla esta sección.
 
-## Termination
+## 9. Integraciones con sistemas de terceros
 
-We may terminate or suspend Your access immediately, without prior notice or liability, for any reason whatsoever, including without limitation if You breach these Terms and Conditions.
+1. La Organización puede configurar integraciones con su ERP para consultar productos y crear
+   pedidos, indicando endpoints, credenciales y las reglas de transformación de los datos.
+2. La Organización es responsable de la exactitud de esa configuración y de contar con autorización
+   para conectar sus sistemas.
+3. No respondemos por la disponibilidad, el comportamiento, los errores ni las políticas de los
+   sistemas de terceros. Si el ERP rechaza un pedido o deja de responder, el Servicio registrará el
+   resultado, pero la resolución dependerá de ese sistema.
 
-Upon termination, Your right to use the Service will cease immediately.
+## 10. Disponibilidad, cambios y mantenimiento
 
-## Limitation of Liability
+Trabajamos para mantener el Servicio disponible y funcionando correctamente, pero no garantizamos
+que su operación sea ininterrumpida ni libre de errores. Pueden producirse interrupciones por
+mantenimiento, actualizaciones, fallos de proveedores o causas de fuerza mayor.
 
-Notwithstanding any damages that You might incur, the entire liability of the Company and any of its suppliers under any provision of this Terms and Your exclusive remedy for all of the foregoing shall be limited to the amount actually paid by You through the Service or 100 USD if You haven't purchased anything through the Service.
+Podemos modificar, añadir o retirar funcionalidades del Servicio para mejorarlo. Si un cambio afecta
+de forma sustancial y negativa el uso contratado, procuraremos avisar con antelación razonable.
 
-To the maximum extent permitted by applicable law, in no event shall the Company or its suppliers be liable for any special, incidental, indirect, or consequential damages whatsoever (including, but not limited to, damages for loss of profits, loss of data or other information, for business interruption, for personal injury, loss of privacy arising out of or in any way related to the use of or inability to use the Service, third-party software and/or third-party hardware used with the Service, or otherwise in connection with any provision of this Terms), even if the Company or any supplier has been advised of the possibility of such damages and even if the remedy fails of its essential purpose.
+## 11. Propiedad intelectual
 
-Some states do not allow the exclusion of implied warranties or limitation of liability for incidental or consequential damages, which means that some of the above limitations may not apply. In these states, each party's liability will be limited to the greatest extent permitted by law.
+El Servicio, su software, su diseño, su marca y su documentación son propiedad de SyncDistro o de
+sus licenciantes, y están protegidos por la legislación aplicable. Estos términos no transfieren
+ningún derecho de propiedad intelectual: únicamente otorgan un derecho limitado, revocable y no
+exclusivo de uso del Servicio mientras la cuenta esté vigente.
 
-## "AS IS" and "AS AVAILABLE" Disclaimer
+El Contenido de la Organización sigue siendo de la Organización. Nos concede una licencia limitada
+para alojarlo, procesarlo y transmitirlo con el único fin de prestar el Servicio.
 
-The Service is provided to You "AS IS" and "AS AVAILABLE" and with all faults and defects without warranty of any kind. To the maximum extent permitted under applicable law, the Company, on its own behalf and on behalf of its Affiliates and its and their respective licensors and service providers, expressly disclaims all warranties, whether express, implied, statutory or otherwise, with respect to the Service, including all implied warranties of merchantability, fitness for a particular purpose, title and non-infringement, and warranties that may arise out of course of dealing, course of performance, usage or trade practice. Without limitation to the foregoing, the Company provides no warranty or undertaking, and makes no representation of any kind that the Service will meet Your requirements, achieve any intended results, be compatible or work with any other software, applications, systems or services, operate without interruption, meet any performance or reliability standards or be error free or that any errors or defects can or will be corrected.
+## 12. Tarifas y condiciones comerciales
 
-Without limiting the foregoing, neither the Company nor any of the company's provider makes any representation or warranty of any kind, express or implied: (i) as to the operation or availability of the Service, or the information, content, and materials or products included thereon; (ii) that the Service will be uninterrupted or error-free; (iii) as to the accuracy, reliability, or currency of any information or content provided through the Service; or (iv) that the Service, its servers, the content, or e-mails sent from or on behalf of the Company are free of viruses, scripts, trojan horses, worms, malware, timebombs or other harmful components.
+Las condiciones económicas del Servicio (alcance, número de usuarios, vigencia y precio) se acuerdan
+directamente con cada Organización en el contrato o propuesta correspondiente. En caso de
+discrepancia entre esas condiciones y estos términos en materia comercial, prevalecerá lo acordado
+con la Organización.
 
-Some jurisdictions do not allow the exclusion of certain types of warranties or limitations on applicable statutory rights of a consumer, so some or all of the above exclusions and limitations may not apply to You. But in such a case the exclusions and limitations set forth in this section shall be applied to the greatest extent enforceable under applicable law.
+## 13. Suspensión y terminación
 
-## Governing Law
+1. La Organización puede dar por terminado el uso del Servicio conforme a lo acordado con nosotros.
+2. Podemos suspender o terminar el acceso en caso de incumplimiento de estos términos, uso que
+   comprometa la seguridad del Servicio o impago de las condiciones acordadas.
+3. Al terminar la relación, el acceso al Servicio cesa. La Organización puede solicitar la
+   exportación o la eliminación de su información en los plazos previstos en la Política de
+   Privacidad y en la normativa aplicable.
 
-The laws of the Country, excluding its conflicts of law rules, shall govern this Terms and Your use of the Service. Your use of the Application may also be subject to other local, state, national, or international laws.
+## 14. Limitación de responsabilidad
 
-## Disputes Resolution
+El Servicio se proporciona "tal cual" y "según disponibilidad". En la medida máxima permitida por la
+ley aplicable:
 
-If You have any concern or dispute about the Service, You agree to first try to resolve the dispute informally by contacting the Company.
+- No respondemos por daños indirectos, incidentales, especiales o consecuenciales, ni por lucro
+  cesante, pérdida de oportunidades comerciales o pérdida de datos derivada del uso o de la
+  imposibilidad de uso del Servicio.
+- No respondemos por decisiones comerciales tomadas a partir de información transcrita o analizada
+  automáticamente sin la validación prevista en la cláusula 6.
+- No respondemos por el incumplimiento de la Organización de sus obligaciones en materia de
+  protección de datos, normativa laboral o consentimiento para grabaciones.
+- Nuestra responsabilidad total acumulada quedará limitada al monto efectivamente pagado por la
+  Organización por el Servicio durante los doce meses anteriores al hecho que originó la reclamación.
 
-## For European Union (EU) Users
+Nada en esta cláusula excluye responsabilidades que no puedan limitarse conforme a la ley aplicable.
 
-If You are a European Union consumer, you will benefit from any mandatory provisions of the law of the country in which you are resident in.
+## 15. Indemnidad
 
-## United States Legal Compliance
+La Organización se compromete a mantenernos indemnes frente a reclamaciones de terceros derivadas
+del Contenido que registra en el Servicio, del uso que su personal haga de la plataforma o del
+incumplimiento de estos términos.
 
-You represent and warrant that (i) You are not located in a country that is subject to the United States government embargo, or that has been designated by the United States government as a "terrorist supporting" country, and (ii) You are not listed on any United States government list of prohibited or restricted parties.
+## 16. Modificaciones a estos términos
 
-## Severability and Waiver
+Podemos actualizar estos Términos y Condiciones. Cuando el cambio sea relevante, lo comunicaremos a
+través de la plataforma o por correo electrónico. El uso del Servicio después de la entrada en
+vigor de la nueva versión implica su aceptación. La fecha de la última actualización aparece al
+inicio de este documento.
 
-### Severability
+## 17. Ley aplicable y jurisdicción
 
-If any provision of these Terms is held to be unenforceable or invalid, such provision will be changed and interpreted to accomplish the objectives of such provision to the greatest extent possible under applicable law and the remaining provisions will continue in full force and effect.
+Estos términos se rigen por la legislación del lugar de constitución del titular del Servicio. Las
+controversias que no puedan resolverse de común acuerdo se someterán a los tribunales competentes de
+esa jurisdicción, salvo pacto distinto en el contrato con la Organización.
 
-### Waiver
+## 18. Contacto
 
-Except as provided herein, the failure to exercise a right or to require performance of an obligation under these Terms shall not effect a party's ability to exercise such right or require such performance at any time thereafter nor shall the waiver of a breach constitute a waiver of any subsequent breach.
-
-## Translation Interpretation
-
-These Terms and Conditions may have been translated if We have made them available to You on our Service. You agree that the original English text shall prevail in the case of a dispute.
-
-## Changes to These Terms and Conditions
-
-We reserve the right, at Our sole discretion, to modify or replace these Terms at any time. If a revision is material We will make reasonable efforts to provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at Our sole discretion.
-
-By continuing to access or use Our Service after those revisions become effective, You agree to be bound by the revised terms. If You do not agree to the new terms, in whole or in part, please stop using the website and the Service.
-
-## Contact Us
-
-If you have any questions about these Terms and Conditions, You can contact us:
-
-- By email: somecoolemail@domain.com
+Para cualquier consulta sobre estos Términos y Condiciones, escríbenos a
+**contacto@syncdistro.com**.

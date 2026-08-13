@@ -1,0 +1,37 @@
+---
+/**
+ * Marco de teléfono para las capturas reales de la app móvil
+ * (archivos en `public/img/app`).
+ */
+import { getAsset } from '~/utils/permalinks';
+
+export interface Props {
+  /** Ruta pública de la captura, p. ej. `/img/app/app1.jpeg` */
+  src: string;
+  alt: string;
+  /** Texto opcional debajo del marco */
+  caption?: string;
+  class?: string;
+}
+
+const { src, alt, caption, class: className = '' } = Astro.props;
+---
+
+<figure class:list={['flex flex-col items-center', className]}>
+  <div
+    class="relative rounded-[2rem] border border-gray-300/80 bg-gray-900 p-2 shadow-2xl ring-1 ring-black/5 dark:border-slate-700 dark:bg-slate-950"
+  >
+    <!-- Muesca superior -->
+    <div class="absolute top-3.5 left-1/2 z-10 h-1.5 w-16 -translate-x-1/2 rounded-full bg-black/60"></div>
+    <img
+      src={getAsset(src)}
+      alt={alt}
+      width="602"
+      height="1280"
+      loading="lazy"
+      decoding="async"
+      class="block h-auto w-full rounded-[1.5rem] bg-white"
+    />
+  </div>
+  {caption && <figcaption class="mt-4 max-w-[16rem] text-center text-sm text-muted">{caption}</figcaption>}
+</figure>

@@ -19,6 +19,11 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# Capturas originales sin redactar (contienen datos personales reales).
+# No se publican ni se versionan; las versiones publicables están en
+# src/assets/images/web/.
+sin-publicar/
+
 pnpm-lock.yaml
 
 .astro
