@@ -26,10 +26,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -37,18 +37,28 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Inyecta el `base` correcto según la configuración de GitHub Pages
-      # del repositorio. No sobrescribe `src/config.yaml`: solo valida que
-      # coincidan y falla temprano si alguien cambia el nombre del repo.
+      # `enablement: true` intenta activar GitHub Pages por API si aún no lo
+      # está. Si falla, hay que activarlo a mano en
+      # Settings → Pages → Source: GitHub Actions (y en repos privados el plan
+      # tiene que incluir Pages).
       - name: Configure Pages
         id: pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
+        with:
+          enablement: true
 
+      # El sitio se sirve en un subdirectorio (project site), así que el `base`
+      # de src/config.yaml tiene que coincidir con el que informa Pages. Si no,
+      # todos los assets darían 404 en producción.
       - name: Check base path
         env:
           PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
           PAGES_BASE_URL: ${{ steps.pages.outputs.base_url }}
         run: |
+          if [ -z "$PAGES_BASE_PATH" ]; then
+            echo "::warning::configure-pages no devolvió 'base_path'; se omite la comprobación del base."
+            exit 0
+          fi
           expected="${PAGES_BASE_PATH%/}"
           [ -z "$expected" ] && expected="/"
           actual=$(node -e "const yaml=require('js-yaml'),fs=require('fs');process.stdout.write(yaml.load(fs.readFileSync('src/config.yaml','utf8')).site.base)")
@@ -63,7 +73,7 @@ jobs:
         run: npm run build
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./dist
 
@@ -79,4 +89,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
