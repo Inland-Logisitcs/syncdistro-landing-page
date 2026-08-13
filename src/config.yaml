@@ -1,19 +1,18 @@
 site:
   name: SyncDistro
-  # Despliegue actual: GitHub Pages como "project site" del repositorio
-  # Inland-Logisitcs/syncdistro-landing-page, servido en
-  # https://inland-logisitcs.github.io/syncdistro-landing-page/
+  # Despliegue actual: GitHub Pages con dominio propio, servido en
+  # https://syncdistro.syncfreight.com/
   #
-  # Si más adelante se usa un dominio propio (p. ej. syncdistro.com), hay que
-  # cambiar `site` a ese dominio, poner `base: '/'` y añadir el archivo
-  # `public/CNAME` con el dominio.
-  site: 'https://inland-logisitcs.github.io'
-  base: '/syncdistro-landing-page'
+  # Con dominio propio el sitio vive en la RAÍZ, así que `base` tiene que ser
+  # '/'. Si se dejara el `base` del "project site" (`/syncdistro-landing-page`),
+  # el HTML pediría los assets desde ese subdirectorio, que en el dominio propio
+  # no existe: el sitio carga sin estilos. El dominio va además en `public/CNAME`
+  # para que sobreviva a los despliegues.
+  site: 'https://syncdistro.syncfreight.com'
+  base: '/'
   # GitHub Pages sirve cada página como `ruta/index.html`, es decir con barra
   # final, y redirige con 301 la versión sin barra. Con `true` los enlaces y las
-  # URLs canónicas se generan ya con barra final: se evita ese redirect y el
-  # servidor de desarrollo puede servir la home cuando hay un `base`
-  # (`trailingSlash: false` se traduce a 'never' en Astro y ahí da 404).
+  # URLs canónicas se generan ya con barra final y se evita ese redirect.
   trailingSlash: true
 
   googleSiteVerificationId: ''

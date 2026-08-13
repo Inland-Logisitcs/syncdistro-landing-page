@@ -11,20 +11,20 @@ El sitio cumple dos funciones:
 2. **Páginas legales** exigidas por Google Play Store (`/privacy` y `/terms`), obligatorias porque
    la app móvil usa la ubicación GPS del dispositivo.
 
-**En producción:** <https://inland-logisitcs.github.io/syncdistro-landing-page/>
+**En producción:** <https://syncdistro.syncfreight.com/>
 
 ---
 
 ## Comandos
 
-| Comando           | Qué hace                                                       |
-| ----------------- | -------------------------------------------------------------- |
-| `npm install`     | Instala dependencias                                           |
-| `npm run dev`     | Desarrollo en `http://localhost:4321/syncdistro-landing-page/` |
-| `npm run build`   | Genera el sitio estático en `dist/`                            |
-| `npm run preview` | Sirve `dist/` localmente                                       |
-| `npm run check`   | Verifica tipos (astro), ESLint y formato (Prettier)            |
-| `npm run fix`     | Corrige ESLint y formato automáticamente                       |
+| Comando           | Qué hace                                            |
+| ----------------- | --------------------------------------------------- |
+| `npm install`     | Instala dependencias                                |
+| `npm run dev`     | Servidor de desarrollo en `http://localhost:4321`   |
+| `npm run build`   | Genera el sitio estático en `dist/`                 |
+| `npm run preview` | Sirve `dist/` localmente                            |
+| `npm run check`   | Verifica tipos (astro), ESLint y formato (Prettier) |
+| `npm run fix`     | Corrige ESLint y formato automáticamente            |
 
 ---
 
@@ -103,8 +103,7 @@ correspondiente, no la plantilla.
    - `PLAY_STORE_URL` (ficha de la app en Google Play)
    - `CONTACT_EMAIL` y `PRIVACY_EMAIL`
    - `PLATFORM_URL` ya apunta al sistema real (`https://distro.syncfreight.com/`).
-2. **Dominio propio (opcional)** — hoy el sitio vive en la URL de GitHub Pages. Para pasarlo a
-   `syncdistro.com`, ver _Cambiar a un dominio propio_ más abajo.
+2. **Dominio propio** — ya configurado: `syncdistro.syncfreight.com`.
 3. **Correos de los documentos legales** — `privacy.md` y `terms.mdx` mencionan
    `privacidad@syncdistro.com` y `contacto@syncdistro.com`; actualizarlos junto con `links.ts`.
 4. **Revisión legal** — los textos de `/privacy` y `/terms` describen el funcionamiento real del
@@ -138,51 +137,44 @@ En el repositorio: **Settings → Pages → Build and deployment → Source: _Gi
 Sin este paso el workflow falla en el paso `Configure Pages`. No hace falta crear ninguna rama
 `gh-pages`: el artefacto se sirve directamente.
 
-### Por qué el sitio vive en un subdirectorio
+### Dominio y `base`
 
-Al ser un _project site_, GitHub Pages sirve el sitio en
-`https://inland-logisitcs.github.io/syncdistro-landing-page/`, no en la raíz del dominio. Por eso
+El sitio usa el dominio propio `syncdistro.syncfreight.com`, así que se sirve en la **raíz** y
 `src/config.yaml` declara:
 
 ```yaml
-site: 'https://inland-logisitcs.github.io'
-base: '/syncdistro-landing-page'
+site: 'https://syncdistro.syncfreight.com'
+base: '/'
 ```
 
+El dominio está además en `public/CNAME`, para que sobreviva a los despliegues.
+
+> **Ojo con el `base`.** GitHub Pages sirve el sitio de dos formas distintas según la configuración:
+> en `https://<usuario>.github.io/<repo>/` si no hay dominio propio, y en la raíz del dominio si lo
+> hay. El `base` tiene que coincidir con la que esté activa. Si no coincide, el HTML pide los assets
+> desde una ruta que no existe y **el sitio carga sin estilos** (nos pasó al activar el dominio: el
+> `base` seguía siendo `/syncdistro-landing-page`). El workflow compara ambos valores y falla con un
+> mensaje claro antes de publicar.
+
 Todos los enlaces internos usan `getPermalink()` y los assets públicos `getAsset()`, así que
-respetan ese `base` automáticamente. **Nunca escribir rutas absolutas a mano** (`href="/privacy"`):
-quedarían fuera del subdirectorio y darían 404. En archivos Markdown que necesiten enlazar a otra
-página del sitio, usar `.mdx` e importar `getPermalink` (ver `src/pages/terms.mdx`).
+respetan el `base` automáticamente. **Nunca escribir rutas absolutas a mano** (`href="/privacy"`).
+En archivos Markdown que necesiten enlazar a otra página del sitio, usar `.mdx` e importar
+`getPermalink` (ver `src/pages/terms.mdx`).
 
-El workflow compara el `base` de `src/config.yaml` con el que informa GitHub Pages y falla con un
-mensaje claro si dejan de coincidir (por ejemplo, si se renombra el repositorio).
+### Volver a la URL de GitHub Pages, o cambiar de dominio
 
-### Cambiar a un dominio propio
+Si se quita el dominio propio o se cambia por otro, hay que actualizar `src/config.yaml` y
+`public/CNAME` en el mismo commit:
 
-Con un dominio propio el sitio se sirve en la **raíz**, no en un subdirectorio, así que hay que
-cambiar el `base`. Si se olvida, todos los enlaces e imágenes darían 404 (el workflow lo detecta y
-falla antes de publicar).
+| Escenario                        | `site`                               | `base`                     | `public/CNAME`    |
+| -------------------------------- | ------------------------------------ | -------------------------- | ----------------- |
+| Dominio propio (actual)          | `https://syncdistro.syncfreight.com` | `/`                        | el dominio        |
+| Sin dominio propio, project site | `https://inland-logisitcs.github.io` | `/syncdistro-landing-page` | borrar el archivo |
 
-1. **DNS del dominio.** Para un subdominio, un solo registro:
-
-   | Tipo  | Nombre | Valor                        |
-   | ----- | ------ | ---------------------------- |
-   | CNAME | `www`  | `inland-logisitcs.github.io` |
-
-   Para el dominio raíz, cuatro registros A (o un `ALIAS`/`ANAME` a
-   `inland-logisitcs.github.io` si el proveedor lo soporta):
-
-   | Tipo | Nombre | Valor             |
-   | ---- | ------ | ----------------- |
-   | A    | `@`    | `185.199.108.153` |
-   | A    | `@`    | `185.199.109.153` |
-   | A    | `@`    | `185.199.110.153` |
-   | A    | `@`    | `185.199.111.153` |
-
-2. **En el proyecto:** poner `site: 'https://syncdistro.com'` y `base: '/'` en `src/config.yaml`,
-   y crear `public/CNAME` con una sola línea con el dominio.
-3. **En GitHub:** **Settings → Pages → Custom domain**, escribir el dominio y guardar. Cuando
-   GitHub verifique el DNS y emita el certificado, marcar **Enforce HTTPS**.
+Para un dominio nuevo, además de eso: en **Settings → Pages → Custom domain** indicar el dominio, y
+en el DNS crear un `CNAME` del subdominio hacia `inland-logisitcs.github.io` (o, para un dominio
+raíz, los cuatro registros A de GitHub Pages: `185.199.108.153`, `185.199.109.153`,
+`185.199.110.153`, `185.199.111.153`). Cuando GitHub emita el certificado, marcar **Enforce HTTPS**.
 
 ---
 

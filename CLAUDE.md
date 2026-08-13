@@ -219,7 +219,8 @@ Convenciones importantes:
 ### Despliegue en GitHub Pages
 
 - **Repositorio:** `Inland-Logisitcs/syncdistro-landing-page`.
-- **URL pública:** <https://inland-logisitcs.github.io/syncdistro-landing-page/>
+- **URL pública:** <https://syncdistro.syncfreight.com/> (dominio propio; el dominio está en
+  `public/CNAME` y en _Settings → Pages → Custom domain_).
 - **Workflow:** `.github/workflows/deploy.yml` — en cada push a `main` construye y sube el
   artefacto de Pages (`actions/upload-pages-artifact` + `actions/deploy-pages`). No hay rama
   `gh-pages`. Requiere que en el repositorio esté seleccionado
@@ -227,16 +228,20 @@ Convenciones importantes:
 - **`actions.yaml`** sigue siendo solo CI (`npm run check` + `npm run build`).
 
 ```yaml
-# src/config.yaml — es un "project site", el sitio vive en un subdirectorio
-site: 'https://inland-logisitcs.github.io'
-base: '/syncdistro-landing-page'
+# src/config.yaml — con dominio propio el sitio vive en la raíz
+site: 'https://syncdistro.syncfreight.com'
+base: '/'
 ```
 
-**Consecuencia importante del `base`:** nunca escribir rutas absolutas a mano
-(`href="/privacy"`), porque se saldrían del subdirectorio y darían 404. Usar `getPermalink()`
-para páginas y `getAsset()` para archivos de `public/`. En contenido Markdown que necesite
-enlazar a otra página, usar `.mdx` e importar `getPermalink` (ver `src/pages/terms.mdx`).
-El workflow verifica que el `base` declarado coincida con el que informa GitHub Pages.
+**El `base` tiene que coincidir con cómo sirve GitHub Pages el sitio.** Con dominio propio es la
+raíz (`/`); sin dominio propio sería `/syncdistro-landing-page` (project site). Si no coinciden, el
+HTML pide los assets desde una ruta inexistente y **el sitio carga sin estilos** — pasó justo al
+activar el dominio. El workflow compara los dos valores y falla antes de publicar. Al cambiar de
+dominio hay que actualizar `site`, `base` y `public/CNAME` en el mismo commit.
+
+Nunca escribir rutas absolutas a mano (`href="/privacy"`): usar `getPermalink()` para páginas y
+`getAsset()` para archivos de `public/`. En contenido Markdown que necesite enlazar a otra página,
+usar `.mdx` e importar `getPermalink` (ver `src/pages/terms.mdx`).
 
 `public/.nojekyll` existe para que GitHub no intente procesar el sitio con Jekyll (que ignoraría
 el directorio `_astro/`).
