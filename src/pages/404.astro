@@ -1,13 +1,16 @@
 ---
+/**
+ * GitHub Pages sirve un único `404.html` para todo el sitio, así que esta página
+ * no sabe en qué idioma iba la URL fallida: se renderiza en los dos y un script
+ * oculta el que no corresponde según la ruta pedida. Sin JavaScript se ven
+ * ambos, que es el comportamiento correcto por defecto.
+ */
 import Layout from '~/layouts/PageLayout.astro';
-import { getHomePermalink, getPermalink } from '~/utils/permalinks';
-
-const metadata = {
-  title: 'Página no encontrada',
-};
+import { LOCALES, localeHome, localePath } from '~/i18n';
+import { UI } from '~/i18n/ui';
 ---
 
-<Layout metadata={metadata}>
+<Layout metadata={{ title: `${UI.es.notFound.title} · ${UI.en.notFound.title}` }}>
   <section class="flex h-full items-center p-16">
     <div class="container mx-auto my-8 flex flex-col items-center justify-center px-5">
       <div class="max-w-md text-center">
@@ -15,15 +18,46 @@ const metadata = {
           <span class="sr-only">Error</span>
           <span class="text-primary">404</span>
         </h2>
-        <p class="text-3xl font-semibold">No encontramos esta página.</p>
-        <p class="mt-4 mb-8 text-lg text-muted dark:text-slate-400">
-          Puede que el enlace haya cambiado. Vuelve al inicio o revisa las secciones principales del sitio.
-        </p>
-        <div class="flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <a href={getHomePermalink()} class="btn-primary">Ir al inicio</a>
-          <a href={getPermalink('/contacto')} class="btn">Contacto</a>
-        </div>
+
+        {
+          LOCALES.map((locale) => (
+            <div
+              class="not-first:mt-10 not-first:border-t not-first:border-gray-200 not-first:pt-10 dark:not-first:border-slate-700"
+              data-locale={locale}
+              lang={locale}
+            >
+              <p class="text-3xl font-semibold">{UI[locale].notFound.heading}</p>
+              <p class="mt-4 mb-8 text-lg text-muted dark:text-slate-400">{UI[locale].notFound.body}</p>
+              <div class="flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <a href={localeHome(locale)} class="btn-primary">
+                  {UI[locale].notFound.home}
+                </a>
+                <a href={localePath('contact', locale)} class="btn">
+                  {UI[locale].notFound.contact}
+                </a>
+              </div>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
 </Layout>
+
+<script>
+  // Deja visible solo el idioma de la URL que falló.
+  (() => {
+    const blocks = document.querySelectorAll<HTMLElement>('[data-locale]');
+    if (blocks.length < 2) return;
+
+    const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+    const path = location.pathname.startsWith(base) ? location.pathname.slice(base.length) : location.pathname;
+    const wanted = /^\/en(\/|$)/.test(path) ? 'en' : 'es';
+
+    blocks.forEach((block) => {
+      if (block.dataset.locale !== wanted) block.remove();
+    });
+
+    document.documentElement.lang = wanted;
+  })();
+</script>

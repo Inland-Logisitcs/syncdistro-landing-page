@@ -1,0 +1,176 @@
+---
+/**
+ * Estructura de la página del sistema web. El texto llega en `copy` desde
+ * `src/i18n/content/<idioma>/platform.ts`.
+ *
+ * Las capturas reales (mapa de clientes y detalle de ruta) están en español; las
+ * vistas de clientes y visitas siguen siendo placeholders ilustrativos.
+ */
+import Hero from '~/components/widgets/Hero.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import Content from '~/components/widgets/Content.astro';
+import Features from '~/components/widgets/Features.astro';
+import Note from '~/components/widgets/Note.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+import BrowserFrame from '~/components/mockups/BrowserFrame.astro';
+import Screenshot from '~/components/mockups/Screenshot.astro';
+import CustomerList from '~/components/mockups/web/CustomerList.astro';
+import VisitDetail from '~/components/mockups/web/VisitDetail.astro';
+
+import { localePath, type Locale } from '~/i18n';
+import { PLATFORM_URL } from '~/links';
+import type { PlatformCopy } from '~/i18n/content/types';
+
+export interface Props {
+  locale: Locale;
+  copy: PlatformCopy;
+}
+
+const { locale, copy } = Astro.props;
+
+const MODULE_ICONS = [
+  'tabler:building-store',
+  'tabler:map-pin',
+  'tabler:route',
+  'tabler:gps',
+  'tabler:clipboard-list',
+  'tabler:file-invoice',
+  'tabler:package',
+  'tabler:users-group',
+  'tabler:building',
+];
+const ACCESS_ICONS = ['tabler:lock', 'tabler:user-shield', 'tabler:mail-forward', 'tabler:history'];
+
+const withIcons = <T extends object>(items: T[] = [], icons: string[]) =>
+  items.map((item, index) => ({ ...item, icon: icons[index] }));
+---
+
+<!-- Hero ************************** -->
+<Hero
+  tagline={copy.hero.tagline}
+  title={copy.hero.title}
+  subtitle={copy.hero.subtitle}
+  actions={[
+    {
+      variant: 'primary',
+      text: copy.hero.ctaPrimary,
+      href: PLATFORM_URL,
+      target: '_blank',
+      icon: 'tabler:login',
+    },
+    { text: copy.hero.ctaSecondary, href: localePath('mobileApp', locale) },
+  ]}
+>
+  <Fragment slot="image">
+    <BrowserFrame url="distro.syncfreight.com" label={copy.customers.frameLabel}>
+      <Screenshot
+        light="~/assets/images/web/CreacionRutaLight.png"
+        dark="~/assets/images/web/CreacionRutaDark.png"
+        alt={copy.screenshotAlt.routePlanner}
+        loading="eager"
+      />
+    </BrowserFrame>
+  </Fragment>
+</Hero>
+
+<Note icon="tabler:photo" title={copy.note.title} description={copy.note.description} />
+
+<!-- Módulos *********************** -->
+
+<Features2
+  tagline={copy.modules.tagline}
+  title={copy.modules.title}
+  columns={3}
+  items={withIcons(copy.modules.items, MODULE_ICONS)}
+>
+  <Fragment slot="bg">
+    <div class="absolute inset-0 bg-primary/5 dark:bg-transparent"></div>
+  </Fragment>
+</Features2>
+
+<!-- Clientes ********************** -->
+
+<Content isReversed tagline={copy.customers.tagline} title={copy.customers.title} items={copy.customers.items}>
+  <Fragment slot="content">
+    <h3 class="mb-2 text-2xl font-bold tracking-tight sm:text-3xl dark:text-white">{copy.customers.heading}</h3>
+    {copy.customers.lead}
+  </Fragment>
+
+  <Fragment slot="image">
+    <BrowserFrame url="distro.syncfreight.com" label={copy.customers.frameLabel} isPlaceholder>
+      <CustomerList />
+    </BrowserFrame>
+  </Fragment>
+</Content>
+
+<!-- Visitas *********************** -->
+
+<Content isAfterContent tagline={copy.visits.tagline} title={copy.visits.title} items={copy.visits.items}>
+  <Fragment slot="content">
+    <h3 class="mb-2 text-2xl font-bold tracking-tight sm:text-3xl dark:text-white">{copy.visits.heading}</h3>
+    {copy.visits.lead}
+  </Fragment>
+
+  <Fragment slot="image">
+    <BrowserFrame url="distro.syncfreight.com" label={copy.visits.frameLabel} isPlaceholder>
+      <VisitDetail />
+    </BrowserFrame>
+  </Fragment>
+
+  <Fragment slot="bg">
+    <div class="absolute inset-0 bg-primary/5 dark:bg-transparent"></div>
+  </Fragment>
+</Content>
+
+<!-- Seguimiento ******************* -->
+
+<Content
+  isReversed
+  isAfterContent
+  tagline={copy.tracking.tagline}
+  title={copy.tracking.title}
+  items={copy.tracking.items}
+>
+  <Fragment slot="content">
+    <h3 class="mb-2 text-2xl font-bold tracking-tight sm:text-3xl dark:text-white">{copy.tracking.heading}</h3>
+    {copy.tracking.lead}
+  </Fragment>
+
+  <Fragment slot="image">
+    <BrowserFrame url="distro.syncfreight.com" label={copy.tracking.frameLabel}>
+      <Screenshot
+        light="~/assets/images/web/MonitoreoLight.png"
+        dark="~/assets/images/web/MonitoreoDark.png"
+        alt={copy.tracking.screenshotAlt}
+      />
+    </BrowserFrame>
+  </Fragment>
+</Content>
+
+<!-- Roles ************************* -->
+
+<Features
+  tagline={copy.access.tagline}
+  title={copy.access.title}
+  subtitle={copy.access.subtitle}
+  columns={2}
+  items={withIcons(copy.access.items, ACCESS_ICONS)}
+/>
+
+<!-- CTA *************************** -->
+
+<CallToAction
+  title={copy.cta.title}
+  subtitle={copy.cta.subtitle}
+  actions={[
+    {
+      variant: 'primary',
+      text: copy.cta.primary,
+      href: PLATFORM_URL,
+      target: '_blank',
+      icon: 'tabler:login',
+    },
+    { text: copy.cta.secondary, href: localePath('integrations', locale) },
+  ]}
+/>

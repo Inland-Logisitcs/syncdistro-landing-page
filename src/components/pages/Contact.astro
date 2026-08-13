@@ -1,0 +1,71 @@
+---
+/**
+ * Estructura de la página de contacto. El texto llega en `copy` desde
+ * `src/i18n/content/<idioma>/contact.ts`.
+ *
+ * No hay formulario: el sitio es estático, así que los canales son de correo.
+ */
+import Hero from '~/components/widgets/Hero.astro';
+import Features from '~/components/widgets/Features.astro';
+import Steps2 from '~/components/widgets/Steps2.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+import { resolveItems, type Locale } from '~/i18n';
+import { CONTACT_EMAIL, PLATFORM_URL, PLAY_STORE_URL } from '~/links';
+import type { ContactCopy } from '~/i18n/content/types';
+
+export interface Props {
+  locale: Locale;
+  copy: ContactCopy;
+}
+
+const { locale, copy } = Astro.props;
+
+const CHANNEL_ICONS = ['tabler:messages', 'tabler:lifebuoy', 'tabler:shield-lock', 'tabler:plug-connected'];
+
+const channels = resolveItems(copy.channels.items, locale).map((item, index) => ({
+  ...item,
+  icon: CHANNEL_ICONS[index],
+}));
+---
+
+<!-- Hero ************************** -->
+<Hero
+  tagline={copy.hero.tagline}
+  title={copy.hero.title}
+  subtitle={copy.hero.subtitle}
+  actions={[
+    { variant: 'primary', text: copy.hero.ctaPrimary, href: `mailto:${CONTACT_EMAIL}`, icon: 'tabler:mail' },
+    { text: copy.hero.ctaSecondary, href: PLATFORM_URL, target: '_blank' },
+  ]}
+/>
+
+<!-- Canales *********************** -->
+
+<Features title={copy.channels.title} subtitle={copy.channels.subtitle} columns={2} items={channels} />
+
+<!-- Qué esperar ******************* -->
+
+<Steps2
+  isReversed
+  tagline={copy.process.tagline}
+  title={copy.process.title}
+  subtitle={copy.process.subtitle}
+  items={copy.process.items}
+/>
+
+<!-- CTA *************************** -->
+
+<CallToAction
+  title={copy.cta.title}
+  subtitle={copy.cta.subtitle}
+  actions={[
+    { variant: 'primary', text: copy.cta.primary, href: `mailto:${CONTACT_EMAIL}`, icon: 'tabler:mail' },
+    {
+      text: copy.cta.secondary,
+      href: PLAY_STORE_URL,
+      target: '_blank',
+      icon: 'tabler:brand-google-play',
+    },
+  ]}
+/>

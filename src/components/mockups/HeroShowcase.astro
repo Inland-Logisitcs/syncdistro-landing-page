@@ -3,24 +3,35 @@
  * Visual principal del hero: el sistema web (captura real, clara u oscura según
  * el tema) con la app móvil superpuesta, para mostrar las dos mitades del
  * producto.
+ *
+ * Las capturas reales están en español, así que solo se traducen la etiqueta del
+ * marco y el texto alternativo.
  */
 import BrowserFrame from './BrowserFrame.astro';
 import PhoneFrame from './PhoneFrame.astro';
 import Screenshot from './Screenshot.astro';
+
+export interface Props {
+  label: string;
+  alt: string;
+  phoneAlt: string;
+}
+
+const { label, alt, phoneAlt } = Astro.props;
 ---
 
 <div class="relative mx-auto max-w-5xl">
-  <BrowserFrame url="app.syncdistro.com" label="clientes / mapa">
+  <BrowserFrame url="distro.syncfreight.com" label={label}>
     <Screenshot
       light="~/assets/images/web/CreacionRutaLight.png"
       dark="~/assets/images/web/CreacionRutaDark.png"
-      alt="Mapa de clientes de SyncDistro con la herramienta de lazo seleccionando negocios para una ruta nueva"
+      alt={alt}
       loading="eager"
     />
   </BrowserFrame>
 
   <!-- App móvil superpuesta -->
   <div class="pointer-events-none absolute -right-2 -bottom-10 hidden w-36 sm:block md:-right-6 md:w-44 lg:w-48">
-    <PhoneFrame src="/img/app/app2.jpeg" alt="Ruta activa en la app móvil de SyncDistro" />
+    <PhoneFrame src="/img/app/app2.jpeg" alt={phoneAlt} />
   </div>
 </div>

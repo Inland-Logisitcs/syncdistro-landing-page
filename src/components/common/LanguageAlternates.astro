@@ -1,0 +1,44 @@
+---
+/**
+ * Etiquetas `hreflang` de la página actual y redirección por idioma.
+ *
+ * La redirección **solo actúa en la portada del idioma por defecto**, nunca en
+ * enlaces profundos: así un enlace compartido a `/en/platform` siempre abre en
+ * inglés, y un enlace a `/plataforma` siempre en español, sin importar el
+ * navegador de quien lo abre. Para el resto de páginas, los `hreflang` le dicen
+ * a los buscadores qué versión ofrecer.
+ */
+import { getCanonical } from '~/utils/permalinks';
+import { DEFAULT_LOCALE, LOCALES, LOCALE_TAGS, getLocale, getRouteKey, localePath } from '~/i18n';
+
+const locale = getLocale(Astro.url.pathname);
+const routeKey = getRouteKey(Astro.url.pathname);
+
+// La portada del idioma por defecto es la única que autodetecta.
+const isDetectionPoint = routeKey === 'home' && locale === DEFAULT_LOCALE;
+const alternateHome = routeKey ? localePath(routeKey, locale === 'es' ? 'en' : 'es') : null;
+
+// Se inyecta como cadena (y no con `define:vars`) para que se ejecute antes de
+// pintar sin que las herramientas de formato tengan que parsear el script.
+const detectionScript = `(function(){try{
+  var stored = localStorage.getItem('syncdistro-lang');
+  var nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+  var wanted = stored || (/^es\\b/i.test(nav) ? 'es' : 'en');
+  if (wanted === 'en') window.location.replace(${JSON.stringify(alternateHome)});
+}catch(e){}})();`;
+---
+
+{
+  routeKey && (
+    <>
+      {/* `localePath` ya incluye el `base` del sitio; pasarle la ruta cruda a
+          `getCanonical` lo perdería y el hreflang apuntaría fuera del sitio. */}
+      {LOCALES.map((l) => (
+        <link rel="alternate" hreflang={LOCALE_TAGS[l]} href={getCanonical(localePath(routeKey, l))} />
+      ))}
+      <link rel="alternate" hreflang="x-default" href={getCanonical(localePath(routeKey, DEFAULT_LOCALE))} />
+    </>
+  )
+}
+
+{isDetectionPoint && alternateHome && <script is:inline set:html={detectionScript} />}

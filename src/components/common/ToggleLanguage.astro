@@ -1,0 +1,59 @@
+---
+/**
+ * Selector de idioma. Enlaza a la página equivalente en el otro idioma y guarda
+ * la preferencia, para que la detección automática de la portada no la
+ * sobrescriba en visitas posteriores.
+ */
+import { getLocale, getRouteKey, localeHome, localePath, otherLocale, LOCALE_NAMES } from '~/i18n';
+import { useUI } from '~/i18n/ui';
+
+const locale = getLocale(Astro.url.pathname);
+const target = otherLocale(locale);
+const routeKey = getRouteKey(Astro.url.pathname);
+const ui = useUI(locale);
+
+// Si la página no está en el mapa de rutas (p. ej. la 404), el selector manda a
+// la portada del otro idioma.
+const href = routeKey ? localePath(routeKey, target) : localeHome(target);
+---
+
+<a
+  class="ml-2 flex items-center gap-1 rounded-full border border-gray-300 px-2.5 py-1 text-sm font-medium text-muted transition duration-150 ease-in-out hover:border-gray-500 hover:text-default focus:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:border-slate-600 dark:hover:border-slate-400 dark:hover:text-white"
+  href={href}
+  hreflang={target}
+  lang={target}
+  data-set-language={target}
+  title={ui.language.switchTo}
+  aria-label={ui.language.switchTo}
+>
+  <span aria-hidden="true">{target.toUpperCase()}</span>
+  <span class="sr-only">{LOCALE_NAMES[target]}</span>
+</a>
+
+<script>
+  // Recuerda el idioma elegido a mano. `LanguageRedirect` lo respeta por encima
+  // del idioma del navegador.
+  //
+  // El listener se delega en `document` y se registra una sola vez: con View
+  // Transitions este script se vuelve a ejecutar en cada navegación, así que la
+  // bandera evita acumular listeners duplicados.
+  interface WindowWithFlag extends Window {
+    __syncdistroLangListener?: boolean;
+  }
+
+  const w = window as WindowWithFlag;
+
+  if (!w.__syncdistroLangListener) {
+    w.__syncdistroLangListener = true;
+
+    document.addEventListener('click', (event: Event) => {
+      const link = (event.target as HTMLElement | null)?.closest('[data-set-language]');
+      if (!link) return;
+      try {
+        localStorage.setItem('syncdistro-lang', link.getAttribute('data-set-language') || '');
+      } catch {
+        // localStorage puede estar bloqueado; el enlace sigue funcionando igual.
+      }
+    });
+  }
+</script>

@@ -1,9 +1,9 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import MobileApp from '~/components/pages/MobileApp.astro';
-import { mobileApp } from '~/i18n/content/es/mobileApp';
+import { mobileApp } from '~/i18n/content/en/mobileApp';
 ---
 
 <Layout metadata={{ title: mobileApp.meta.title, description: mobileApp.meta.description }}>
-  <MobileApp locale="es" copy={mobileApp} />
+  <MobileApp locale="en" copy={mobileApp} />
 </Layout>

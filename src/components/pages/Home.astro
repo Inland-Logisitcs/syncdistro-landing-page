@@ -1,0 +1,263 @@
+---
+/**
+ * Estructura de la portada. El texto llega en `copy` desde
+ * `src/i18n/content/<idioma>/home.ts`, así que esta plantilla es la misma para
+ * todos los idiomas.
+ *
+ * Los iconos viven aquí porque no se traducen; se emparejan por posición con
+ * los items del texto, así que si se añade o quita un item hay que ajustar
+ * también el array de iconos correspondiente.
+ */
+import Hero from '~/components/widgets/Hero.astro';
+import Note from '~/components/widgets/Note.astro';
+import Features from '~/components/widgets/Features.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import Steps from '~/components/widgets/Steps.astro';
+import Content from '~/components/widgets/Content.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import Stats from '~/components/widgets/Stats.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+import HeroShowcase from '~/components/mockups/HeroShowcase.astro';
+import PhoneFrame from '~/components/mockups/PhoneFrame.astro';
+import BrowserFrame from '~/components/mockups/BrowserFrame.astro';
+import Screenshot from '~/components/mockups/Screenshot.astro';
+import OrderErp from '~/components/mockups/web/OrderErp.astro';
+
+import { localePath, resolveItems, resolveLinks, type Locale } from '~/i18n';
+import { useUI } from '~/i18n/ui';
+import { PLATFORM_URL, PLAY_STORE_URL } from '~/links';
+import type { HomeCopy } from '~/i18n/content/types';
+
+export interface Props {
+  locale: Locale;
+  copy: HomeCopy;
+}
+
+const { locale, copy } = Astro.props;
+const ui = useUI(locale);
+
+const PROBLEM_ICONS = ['tabler:copy', 'tabler:file-x', 'tabler:mood-sad', 'tabler:eye-off'];
+const STEP_ICONS = [
+  'tabler:map-search',
+  'tabler:user-check',
+  'tabler:clipboard-check',
+  'tabler:microphone',
+  'tabler:arrow-right-circle',
+];
+const FEATURE_ICONS = [
+  'tabler:building-store',
+  'tabler:paperclip',
+  'tabler:search',
+  'tabler:route',
+  'tabler:clipboard-list',
+  'tabler:sparkles',
+  'tabler:file-invoice',
+  'tabler:map-pin',
+  'tabler:users-group',
+];
+const STAT_ICONS = ['tabler:language', 'tabler:clipboard-check', 'tabler:route', 'tabler:shield-lock'];
+
+const withIcons = <T extends object>(items: T[] = [], icons: string[]) =>
+  items.map((item, index) => ({ ...item, icon: icons[index] }));
+---
+
+<!-- Hero ************************** -->
+<Hero
+  title={copy.hero.title}
+  actions={[
+    {
+      variant: 'primary',
+      text: copy.hero.ctaPrimary,
+      href: PLATFORM_URL,
+      target: '_blank',
+      icon: 'tabler:login',
+    },
+    { text: copy.hero.ctaSecondary, href: `#${ui.sections.howItWorks}` },
+  ]}
+>
+  <Fragment slot="subtitle">
+    {copy.hero.subtitle}{' '}
+    <span class="hidden sm:inline">{copy.hero.subtitleExtra}</span>
+  </Fragment>
+
+  <Fragment slot="image">
+    <HeroShowcase label={copy.heroFrame.label} alt={copy.heroFrame.alt} phoneAlt={copy.steps.phoneAlt} />
+  </Fragment>
+</Hero>
+
+<!-- Note ************************** -->
+
+<Note icon="tabler:plug-connected" title={copy.note.title} description={copy.note.description} />
+
+<!-- Problema ********************** -->
+
+<Features
+  id="problema"
+  tagline={copy.problem.tagline}
+  title={copy.problem.title}
+  subtitle={copy.problem.subtitle}
+  columns={2}
+  items={withIcons(copy.problem.items, PROBLEM_ICONS)}
+/>
+
+<!-- Cómo funciona ***************** -->
+
+<Steps
+  id={ui.sections.howItWorks}
+  tagline={copy.steps.tagline}
+  title={copy.steps.title}
+  subtitle={copy.steps.subtitle}
+  items={[...withIcons(copy.steps.items, STEP_ICONS), { title: copy.steps.done, icon: 'tabler:check' }]}
+>
+  <Fragment slot="image">
+    <PhoneFrame src="/img/app/app3.jpeg" alt={copy.steps.phoneAlt} class="mx-auto max-w-[15rem]" />
+  </Fragment>
+</Steps>
+
+<!-- Funcionalidades *************** -->
+
+<Features2
+  id={ui.sections.features}
+  tagline={copy.features.tagline}
+  title={copy.features.title}
+  subtitle={copy.features.subtitle}
+  columns={3}
+  items={withIcons(copy.features.items, FEATURE_ICONS)}
+>
+  <Fragment slot="bg">
+    <div class="absolute inset-0 bg-primary/5 dark:bg-transparent"></div>
+  </Fragment>
+</Features2>
+
+<!-- Para vendedores *************** -->
+
+<Content
+  isReversed
+  tagline={copy.reps.tagline}
+  title={copy.reps.title}
+  items={copy.reps.items}
+  callToAction={{
+    text: copy.reps.cta,
+    href: localePath('mobileApp', locale),
+    icon: 'tabler:chevron-right',
+  }}
+>
+  <Fragment slot="content">
+    <h3 class="mb-2 text-2xl font-bold tracking-tight sm:text-3xl dark:text-white">{copy.reps.heading}</h3>
+    {copy.reps.lead}
+  </Fragment>
+
+  <Fragment slot="image">
+    <div class="flex items-end justify-center gap-3">
+      <PhoneFrame src="/img/app/app1.jpeg" alt={copy.reps.phoneRoutesAlt} class="w-1/2 max-w-[11rem]" />
+      <PhoneFrame src="/img/app/app4.jpeg" alt={copy.reps.phoneCustomersAlt} class="w-1/2 max-w-[11rem]" />
+    </div>
+  </Fragment>
+
+  <Fragment slot="bg">
+    <div class="absolute inset-0 bg-primary/5 dark:bg-transparent"></div>
+  </Fragment>
+</Content>
+
+<!-- Para administradores ********** -->
+
+<Content
+  isAfterContent
+  tagline={copy.managers.tagline}
+  title={copy.managers.title}
+  items={copy.managers.items}
+  callToAction={{
+    text: copy.managers.cta,
+    href: localePath('platform', locale),
+    icon: 'tabler:chevron-right',
+  }}
+>
+  <Fragment slot="content">
+    <h3 class="mb-2 text-2xl font-bold tracking-tight sm:text-3xl dark:text-white">{copy.managers.heading}</h3>
+    {copy.managers.lead}
+  </Fragment>
+
+  <Fragment slot="image">
+    <BrowserFrame url="distro.syncfreight.com" label={copy.managers.frameLabel}>
+      <Screenshot
+        light="~/assets/images/web/MonitoreoLight.png"
+        dark="~/assets/images/web/MonitoreoDark.png"
+        alt={copy.managers.screenshotAlt}
+      />
+    </BrowserFrame>
+  </Fragment>
+</Content>
+
+<!-- ERP *************************** -->
+
+<Content
+  isReversed
+  isAfterContent
+  tagline={copy.erp.tagline}
+  title={copy.erp.title}
+  items={copy.erp.items}
+  callToAction={{
+    text: copy.erp.cta,
+    href: localePath('integrations', locale),
+    icon: 'tabler:chevron-right',
+  }}
+>
+  <Fragment slot="content">
+    <h3 class="mb-2 text-2xl font-bold tracking-tight sm:text-3xl dark:text-white">{copy.erp.heading}</h3>
+    {copy.erp.lead}
+  </Fragment>
+
+  <Fragment slot="image">
+    <BrowserFrame url="distro.syncfreight.com" label={copy.erp.frameLabel} isPlaceholder>
+      <OrderErp />
+    </BrowserFrame>
+  </Fragment>
+
+  <Fragment slot="bg">
+    <div class="absolute inset-0 bg-primary/5 dark:bg-transparent"></div>
+  </Fragment>
+</Content>
+
+<!-- Datos *********************** -->
+
+<Stats title={copy.stats.title} subtitle={copy.stats.subtitle} stats={withIcons(copy.stats.items, STAT_ICONS)} />
+
+<!-- FAQs ************************** -->
+
+<FAQs
+  id={ui.sections.faqs}
+  title={copy.faqs.title}
+  subtitle={copy.faqs.subtitle}
+  tagline={copy.faqs.tagline}
+  columns={2}
+  items={resolveItems(copy.faqs.items, locale)}
+/>
+
+<!-- CTA final ********************* -->
+
+<CallToAction
+  title={copy.cta.title}
+  actions={[
+    {
+      variant: 'primary',
+      text: copy.cta.primary,
+      href: PLATFORM_URL,
+      target: '_blank',
+      icon: 'tabler:login',
+    },
+    {
+      text: copy.cta.secondary,
+      href: PLAY_STORE_URL,
+      target: '_blank',
+      icon: 'tabler:brand-google-play',
+    },
+  ]}
+>
+  <Fragment slot="subtitle">
+    {copy.cta.subtitle}{' '}
+    <a class="text-primary underline dark:text-cyan-300" href={resolveLinks('%CONTACT%', locale)}>
+      {copy.cta.demoLink}
+    </a>
+  </Fragment>
+</CallToAction>

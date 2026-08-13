@@ -1,9 +1,9 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import Home from '~/components/pages/Home.astro';
-import { home } from '~/i18n/content/es/home';
+import { home } from '~/i18n/content/en/home';
 ---
 
 <Layout metadata={{ title: home.meta.title, description: home.meta.description, ignoreTitleTemplate: true }}>
-  <Home locale="es" copy={home} />
+  <Home locale="en" copy={home} />
 </Layout>

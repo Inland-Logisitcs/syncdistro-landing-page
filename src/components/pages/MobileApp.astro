@@ -1,0 +1,154 @@
+---
+/**
+ * Estructura de la página de la app móvil. El texto llega en `copy` desde
+ * `src/i18n/content/<idioma>/mobileApp.ts`.
+ */
+import Hero from '~/components/widgets/Hero.astro';
+import Note from '~/components/widgets/Note.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import Content from '~/components/widgets/Content.astro';
+import Steps2 from '~/components/widgets/Steps2.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+import PhoneFrame from '~/components/mockups/PhoneFrame.astro';
+
+import { localePath, resolveLinks, type Locale } from '~/i18n';
+import { PLAY_STORE_URL } from '~/links';
+import type { MobileAppCopy } from '~/i18n/content/types';
+
+export interface Props {
+  locale: Locale;
+  copy: MobileAppCopy;
+}
+
+const { locale, copy } = Astro.props;
+
+const FEATURE_ICONS = [
+  'tabler:route',
+  'tabler:player-pause',
+  'tabler:clipboard-check',
+  'tabler:microphone',
+  'tabler:file-text',
+  'tabler:sparkles',
+  'tabler:building-store',
+  'tabler:shopping-cart',
+  'tabler:language',
+];
+const PERMISSION_ICONS = ['tabler:map-pin', 'tabler:pin', 'tabler:microphone', 'tabler:settings'];
+
+const withIcons = <T extends object>(items: T[] = [], icons: string[]) =>
+  items.map((item, index) => ({ ...item, icon: icons[index] }));
+---
+
+<!-- Hero ************************** -->
+<Hero
+  tagline={copy.hero.tagline}
+  title={copy.hero.title}
+  subtitle={copy.hero.subtitle}
+  actions={[
+    {
+      variant: 'primary',
+      text: copy.hero.ctaPrimary,
+      href: PLAY_STORE_URL,
+      target: '_blank',
+      icon: 'tabler:brand-google-play',
+    },
+    { text: copy.hero.ctaSecondary, href: localePath('platform', locale) },
+  ]}
+>
+  <Fragment slot="image">
+    <div class="flex items-end justify-center gap-4 sm:gap-6">
+      <PhoneFrame
+        src="/img/app/app1.jpeg"
+        alt={copy.captions.routes}
+        class="w-1/3 max-w-[13rem]"
+        caption={copy.captions.routes}
+      />
+      <PhoneFrame
+        src="/img/app/app2.jpeg"
+        alt={copy.captions.activeRoute}
+        class="w-1/3 max-w-[13rem]"
+        caption={copy.captions.activeRoute}
+      />
+      <PhoneFrame
+        src="/img/app/app3.jpeg"
+        alt={copy.captions.map}
+        class="hidden w-1/3 max-w-[13rem] sm:block"
+        caption={copy.captions.map}
+      />
+    </div>
+  </Fragment>
+</Hero>
+
+<!-- Note ************************** -->
+
+<Note icon="tabler:device-mobile" title={copy.note.title} description={copy.note.description} />
+
+<!-- Funcionalidades *************** -->
+
+<Features2
+  tagline={copy.features.tagline}
+  title={copy.features.title}
+  columns={3}
+  items={withIcons(copy.features.items, FEATURE_ICONS)}
+>
+  <Fragment slot="bg">
+    <div class="absolute inset-0 bg-primary/5 dark:bg-transparent"></div>
+  </Fragment>
+</Features2>
+
+<!-- Flujo de la visita ************ -->
+
+<Steps2
+  tagline={copy.visitFlow.tagline}
+  title={copy.visitFlow.title}
+  subtitle={copy.visitFlow.subtitle}
+  items={copy.visitFlow.items}
+/>
+
+<!-- Clientes ********************** -->
+
+<Content isReversed tagline={copy.standalone.tagline} title={copy.standalone.title} items={copy.standalone.items}>
+  <Fragment slot="content">
+    <h3 class="mb-2 text-2xl font-bold tracking-tight sm:text-3xl dark:text-white">{copy.standalone.heading}</h3>
+    {copy.standalone.lead}
+  </Fragment>
+
+  <Fragment slot="image">
+    <PhoneFrame src="/img/app/app4.jpeg" alt={copy.standalone.phoneAlt} class="mx-auto max-w-[15rem]" />
+  </Fragment>
+</Content>
+
+<!-- Permisos ********************** -->
+
+<FAQs
+  title={copy.permissions.title}
+  subtitle={copy.permissions.subtitle}
+  tagline={copy.permissions.tagline}
+  columns={2}
+  items={withIcons(copy.permissions.items, PERMISSION_ICONS)}
+/>
+
+<Note
+  icon="tabler:shield-lock"
+  title={copy.privacyNote.title}
+  description={resolveLinks(copy.privacyNote.description, locale)}
+/>
+
+<!-- CTA *************************** -->
+
+<CallToAction
+  title={copy.cta.title}
+  subtitle={copy.cta.subtitle}
+  actions={[
+    {
+      variant: 'primary',
+      text: copy.cta.primary,
+      href: PLAY_STORE_URL,
+      target: '_blank',
+      icon: 'tabler:brand-google-play',
+    },
+    { text: copy.cta.secondary, href: localePath('contact', locale) },
+  ]}
+/>

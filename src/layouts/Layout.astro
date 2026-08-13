@@ -5,7 +5,10 @@ import { Font } from 'astro:assets';
 
 import { I18N } from 'astrowind:config';
 
+import { LOCALE_TAGS, getLocale } from '~/i18n';
+
 import CommonMeta from '~/components/common/CommonMeta.astro';
+import LanguageAlternates from '~/components/common/LanguageAlternates.astro';
 import Favicons from '~/components/Favicons.astro';
 import CustomStyles from '~/components/CustomStyles.astro';
 import ApplyColorMode from '~/components/common/ApplyColorMode.astro';
@@ -24,13 +27,18 @@ export interface Props {
 }
 
 const { metadata = {} } = Astro.props;
-const { language, textDirection } = I18N;
+const { textDirection } = I18N;
+
+// El idioma se deriva de la URL (`/en/...` es inglés), así que funciona igual en
+// páginas .astro y en el contenido Markdown, sin pasar props por el layout.
+const locale = getLocale(Astro.url.pathname);
 ---
 
 <!doctype html>
-<html lang={language} dir={textDirection} class="2xl:text-[20px]">
+<html lang={LOCALE_TAGS[locale]} dir={textDirection} class="2xl:text-[20px]">
   <head>
     <CommonMeta />
+    <LanguageAlternates />
     <Favicons />
     <Font cssVariable="--font-inter" preload />
     <CustomStyles />

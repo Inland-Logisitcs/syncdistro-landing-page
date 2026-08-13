@@ -6,11 +6,8 @@
  * todas las páginas.
  */
 
-/** URL del sistema web (login de administradores y gerentes). Placeholder. */
-export const PLATFORM_URL = 'https://app.syncdistro.com';
-
-/** URL de registro / creación de organización. Placeholder. */
-export const SIGNUP_URL = 'https://app.syncdistro.com/register';
+/** URL del sistema web (login de administradores y gerentes). */
+export const PLATFORM_URL = 'https://distro.syncfreight.com/';
 
 /** Ficha de la app móvil en Google Play. Placeholder. */
 export const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.syncdistro.app';

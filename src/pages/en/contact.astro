@@ -1,9 +1,9 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import Contact from '~/components/pages/Contact.astro';
-import { contact } from '~/i18n/content/es/contact';
+import { contact } from '~/i18n/content/en/contact';
 ---
 
 <Layout metadata={{ title: contact.meta.title, description: contact.meta.description }}>
-  <Contact locale="es" copy={contact} />
+  <Contact locale="en" copy={contact} />
 </Layout>

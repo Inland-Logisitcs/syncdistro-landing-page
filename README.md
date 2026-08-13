@@ -17,14 +17,14 @@ El sitio cumple dos funciones:
 
 ## Comandos
 
-| Comando           | Qué hace                                            |
-| ----------------- | --------------------------------------------------- |
-| `npm install`     | Instala dependencias                                |
-| `npm run dev`     | Servidor de desarrollo en `http://localhost:4321`   |
-| `npm run build`   | Genera el sitio estático en `dist/`                 |
-| `npm run preview` | Sirve `dist/` localmente                            |
-| `npm run check`   | Verifica tipos (astro), ESLint y formato (Prettier) |
-| `npm run fix`     | Corrige ESLint y formato automáticamente            |
+| Comando           | Qué hace                                                       |
+| ----------------- | -------------------------------------------------------------- |
+| `npm install`     | Instala dependencias                                           |
+| `npm run dev`     | Desarrollo en `http://localhost:4321/syncdistro-landing-page/` |
+| `npm run build`   | Genera el sitio estático en `dist/`                            |
+| `npm run preview` | Sirve `dist/` localmente                                       |
+| `npm run check`   | Verifica tipos (astro), ESLint y formato (Prettier)            |
+| `npm run fix`     | Corrige ESLint y formato automáticamente                       |
 
 ---
 
@@ -32,16 +32,17 @@ El sitio cumple dos funciones:
 
 ```
 src/
-  pages/
-    index.astro          Landing
-    app-movil.astro      App móvil para vendedores
-    plataforma.astro     Sistema web para administradores
-    integraciones.astro  Integraciones con ERP
-    contacto.astro       Contacto
-    privacy.md           Política de Privacidad  (obligatoria para Play Store)
-    terms.mdx            Términos y Condiciones  (obligatoria para Play Store)
-    404.astro
+  pages/                 Rutas. El español va en la raíz, el inglés bajo /en/
+    index.astro            /                 · en/index.astro          /en/
+    app-movil.astro        /app-movil        · en/mobile-app.astro     /en/mobile-app
+    plataforma.astro       /plataforma       · en/platform.astro       /en/platform
+    integraciones.astro    /integraciones    · en/integrations.astro   /en/integrations
+    contacto.astro         /contacto         · en/contact.astro        /en/contact
+    privacy.md             /privacy          · en/privacy.md           /en/privacy
+    terms.mdx              /terms            · en/terms.mdx            /en/terms
+    404.astro              bilingüe (GitHub Pages sirve un solo 404)
   components/
+    pages/               Estructura de cada página, común a los dos idiomas
     mockups/             Marcos de dispositivo y vistas del sistema web
       PhoneFrame.astro   Marco de teléfono para las capturas de la app móvil
       BrowserFrame.astro Marco de navegador
@@ -49,11 +50,41 @@ src/
       HeroShowcase.astro Visual del hero (web + app)
       web/               Vistas aún placeholder: clientes, visita, pedidos, integración
     widgets/             Secciones reutilizables (Hero, Features, Content, Steps, FAQs, …)
+  i18n/
+    index.ts             Idiomas, mapa de rutas y helpers (localePath, resolveLinks)
+    ui.ts                Cadenas de interfaz: menú, pie, 404, aviso superior
+    content/es|en/*.ts   Texto de cada página, un archivo por página e idioma
   assets/images/web/     Capturas reales del sistema web (Astro las optimiza)
   links.ts               URLs y correos externos — revisar antes de publicar
-  navigation.ts          Menú de cabecera y pie de página
-  config.yaml            Nombre del sitio, dominio, SEO, idioma
+  navigation.ts          Menú de cabecera y pie de página, por idioma
+  config.yaml            Nombre del sitio, dominio, SEO, idioma por defecto
 ```
+
+### Editar textos o traducir
+
+La estructura visual de cada página vive una sola vez en `src/components/pages/`; el texto está en
+`src/i18n/content/<idioma>/<pagina>.ts`. Para cambiar una frase se edita el archivo del idioma
+correspondiente, no la plantilla.
+
+- Los textos admiten HTML sencillo y los marcadores `%PRIVACY%`, `%TERMS%`, `%CONTACT%`,
+  `%INTEGRATIONS%`, `%EMAIL%` y `%PRIVACY_EMAIL%`, que se sustituyen por la URL o el correo del
+  idioma de la página. **No escribir URLs internas a mano** en los textos.
+- Los iconos no se traducen: viven en el componente de la página y se emparejan **por posición** con
+  los items del texto. Si se añade o quita un item hay que ajustar también el array de iconos.
+- Las cadenas de menú, pie de página y 404 están en `src/i18n/ui.ts`.
+- Para añadir una página nueva hay que registrarla en `ROUTES` (`src/i18n/index.ts`) con su ruta en
+  los dos idiomas; de ahí salen el menú, el selector de idioma y las etiquetas `hreflang`.
+
+### Cómo se elige el idioma
+
+- El **español está en la raíz** y el inglés bajo `/en/`. Se hizo así a propósito: `/privacy` y
+  `/terms` son las URLs declaradas en Google Play y moverlas las rompería.
+- En la **portada en español** (y solo ahí) un script decide: si hay un idioma guardado se respeta;
+  si no, se usa `navigator.language` — español se queda, cualquier otro idioma va a `/en/`.
+- Los **enlaces profundos nunca redirigen**: `/plataforma` siempre abre en español y `/en/platform`
+  siempre en inglés, sin importar el navegador de quien los abra. Para eso están los `hreflang`.
+- El **selector `ES`/`EN`** del header lleva a la página equivalente y guarda la preferencia en
+  `localStorage` (`syncdistro-lang`), así la detección automática no la sobrescribe después.
 
 ### Añadir capturas del sistema web
 
@@ -68,10 +99,10 @@ src/
 
 ## Pendientes antes de publicar
 
-1. **`src/links.ts`** — reemplazar los placeholders por los valores reales:
-   - `PLATFORM_URL` y `SIGNUP_URL` (login del sistema web)
+1. **`src/links.ts`** — quedan placeholders por reemplazar:
    - `PLAY_STORE_URL` (ficha de la app en Google Play)
    - `CONTACT_EMAIL` y `PRIVACY_EMAIL`
+   - `PLATFORM_URL` ya apunta al sistema real (`https://distro.syncfreight.com/`).
 2. **Dominio propio (opcional)** — hoy el sitio vive en la URL de GitHub Pages. Para pasarlo a
    `syncdistro.com`, ver _Cambiar a un dominio propio_ más abajo.
 3. **Correos de los documentos legales** — `privacy.md` y `terms.mdx` mencionan
@@ -82,9 +113,14 @@ src/
 5. **Capturas pendientes del sistema web** — ya son reales el mapa de clientes (hero de la landing
    y de `/plataforma`) y el detalle de ruta con rastreo GPS. Siguen siendo ilustrativas las vistas
    de `src/components/mockups/web/`: listado de clientes, detalle de visita, pedidos al ERP y
-   configuración de la integración.
+   configuración de la integración. Las capturas reales están en español, así que en el sitio en
+   inglés solo se traducen la etiqueta del marco y el texto alternativo; cuando existan capturas en
+   inglés se puede pasar un par distinto por idioma.
 6. **Planes y precios** — no hay página de planes. Cuando se definan tarifas habrá que crearla
-   (`src/pages/planes.astro`) y volver a enlazarla desde el menú y el pie de página.
+   (`src/pages/planes.astro` y `src/pages/en/pricing.astro`), registrarla en `ROUTES` y volver a
+   enlazarla desde el menú y el pie de página.
+7. **Revisión de la traducción al inglés** — los textos en inglés están escritos, pero conviene que
+   alguien del equipo comercial los revise antes de darles difusión.
 
 ---
 

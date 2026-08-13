@@ -130,30 +130,56 @@ Página principal con:
 
 El template AstroWind ya fue adaptado. Lo que existe hoy:
 
-| Ruta             | Contenido                                                                |
-| ---------------- | ------------------------------------------------------------------------ |
-| `/`              | Landing: hero, problema, cómo funciona, funcionalidades, dos             |
-|                  | audiencias, ERP, datos, FAQs, CTA                                        |
-| `/app-movil`     | App móvil para vendedores (usa las capturas de `public/img/app`)         |
-| `/plataforma`    | Sistema web para administradores y gerentes                              |
-| `/integraciones` | Integraciones con ERP (productos y pedidos)                              |
-| `/contacto`      | Canales de contacto por correo (no hay formulario: el sitio es estático) |
-| `/privacy`       | Política de Privacidad (Play Store)                                      |
-| `/terms`         | Términos y Condiciones (Play Store)                                      |
-| `/404`           | Página de error                                                          |
+El sitio es **bilingüe**: español en la raíz, inglés bajo `/en/`.
+
+| Español          | Inglés             | Contenido                                                                                      |
+| ---------------- | ------------------ | ---------------------------------------------------------------------------------------------- |
+| `/`              | `/en/`             | Landing: hero, problema, cómo funciona, funcionalidades, dos audiencias, ERP, datos, FAQs, CTA |
+| `/app-movil`     | `/en/mobile-app`   | App móvil para vendedores (capturas de `public/img/app`)                                       |
+| `/plataforma`    | `/en/platform`     | Sistema web para administradores y gerentes                                                    |
+| `/integraciones` | `/en/integrations` | Integraciones con ERP (productos y pedidos)                                                    |
+| `/contacto`      | `/en/contact`      | Canales de contacto por correo (no hay formulario: el sitio es estático)                       |
+| `/privacy`       | `/en/privacy`      | Política de Privacidad (Play Store)                                                            |
+| `/terms`         | `/en/terms`        | Términos y Condiciones (Play Store)                                                            |
+| `/404`           | —                  | Página de error, bilingüe (GitHub Pages sirve una sola)                                        |
 
 Convenciones importantes:
 
-- **Idioma:** todo el sitio está en español (`i18n.language: es` en `src/config.yaml`).
+- **Idiomas:** español (por defecto, en la raíz) e inglés (`/en/`). El mapa de rutas de cada
+  idioma está en `ROUTES` (`src/i18n/index.ts`); de ahí salen el menú, el selector `ES`/`EN` y las
+  etiquetas `hreflang`. El español no lleva prefijo a propósito: `/privacy` y `/terms` son las URLs
+  declaradas en Google Play.
+- **Detección de idioma:** solo en la portada en español, con un script en línea
+  (`LanguageAlternates.astro`). Respeta la preferencia guardada en `localStorage`
+  (`syncdistro-lang`); si no hay, usa `navigator.language` — español se queda, cualquier otro va a
+  `/en/`. Los enlaces profundos **nunca** redirigen, para que un enlace compartido abra siempre en
+  el idioma que indica su URL.
+- **Estructura vs. texto:** la estructura de cada página vive una sola vez en
+  `src/components/pages/*.astro` y recibe el texto por props desde
+  `src/i18n/content/<idioma>/<pagina>.ts`. Las cadenas de menú, pie y 404 están en
+  `src/i18n/ui.ts`. Para cambiar una frase se edita el archivo de texto, nunca la plantilla.
+- **Enlaces dentro de los textos:** usar los marcadores `%PRIVACY%`, `%TERMS%`, `%CONTACT%`,
+  `%INTEGRATIONS%`, `%EMAIL%`, `%PRIVACY_EMAIL%` y pasar el texto por `resolveLinks()` /
+  `resolveItems()`. Nunca escribir URLs internas a mano en el texto.
+- **Iconos:** no se traducen. Viven en el componente de la página y se emparejan **por posición**
+  con los items del texto; si se añade o quita un item hay que ajustar el array de iconos.
+- **`transition:persist` y el idioma:** la clave del header incluye el idioma
+  (`header-${locale}`). Con una clave fija, al cambiar de idioma View Transitions reutilizaba el
+  header del idioma anterior y quedaba el menú en el idioma equivocado.
 - **Paleta:** azul petróleo / teal tomado de la app móvil, definida en
   `src/components/CustomStyles.astro` (`--aw-color-primary: rgb(11 92 116)`). Los widgets usan
   `primary` / `secondary` / `accent`, no colores literales.
-- **URLs y correos externos:** centralizados en `src/links.ts` (todos placeholders por ahora).
-  No hardcodear la URL de la plataforma ni de Google Play en las páginas.
+- **URLs y correos externos:** centralizados en `src/links.ts`. `PLATFORM_URL` ya es la real
+  (`https://distro.syncfreight.com/`); Google Play y los correos siguen siendo placeholders. No
+  hardcodear estas URLs en las páginas.
 - **Enlaces internos:** siempre con `getPermalink()` de `src/utils/permalinks.ts`, para que
   respeten el `base` si el sitio se sirve desde un subdirectorio.
 - **Capturas de la app:** en `public/img/app/*.jpeg`, envueltas con
   `src/components/mockups/PhoneFrame.astro`.
+- **Marca:** el logo oficial es `src/assets/images/syncdistro-logo.png` (icono turquesa
+  `#28D8C0`), usado en `Logo.astro` junto al logotipo, donde "Distro" se pone turquesa solo en tema
+  oscuro, igual que en la app. La imagen Open Graph (`src/assets/images/default.png`) se genera con
+  ese mismo logo.
 - **Capturas del sistema web:** van en `src/assets/images/web/` (nunca en `public/`, ahí no se
   optimizan), en pares claro/oscuro, y se usan con `src/components/mockups/Screenshot.astro`
   dentro de un `<BrowserFrame>`. El cambio claro/oscuro se hace por la clase `.dark`, no por
@@ -170,8 +196,8 @@ Convenciones importantes:
 - **Espacios en blanco en Astro:** el compilador colapsa el espacio entre un texto y un elemento
   inline siguiente. Usar `{' '}` explícito (ver `src/pages/index.astro`).
 - **Sin página de planes:** no hay tarifas definidas, así que no existe `/planes` ni el widget
-  `Pricing`. Si se definen precios, hay que crear la página y volver a enlazarla en
-  `src/navigation.ts`.
+  `Pricing`. Si se definen precios, hay que crear la página en los dos idiomas, registrarla en
+  `ROUTES` y volver a enlazarla en `src/navigation.ts`.
 - **Eliminado del template:** blog completo (posts, RSS, categorías, tags), páginas de demo
   (`homes/`, `landing/`, about, services, pricing), widgets sin uso (Testimonials, Brands,
   Hero2, HeroText, BlogLatestPosts, Pricing…), formulario de contacto no funcional y DecapCMS.

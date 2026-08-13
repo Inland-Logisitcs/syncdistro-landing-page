@@ -1,0 +1,101 @@
+---
+/**
+ * Estructura de la página de integraciones ERP. El texto llega en `copy` desde
+ * `src/i18n/content/<idioma>/integrations.ts`.
+ */
+import Hero from '~/components/widgets/Hero.astro';
+import Note from '~/components/widgets/Note.astro';
+import Steps2 from '~/components/widgets/Steps2.astro';
+import Features from '~/components/widgets/Features.astro';
+import Content from '~/components/widgets/Content.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+import BrowserFrame from '~/components/mockups/BrowserFrame.astro';
+import IntegrationForm from '~/components/mockups/web/IntegrationForm.astro';
+import OrderErp from '~/components/mockups/web/OrderErp.astro';
+
+import { localePath, type Locale } from '~/i18n';
+import { CONTACT_EMAIL } from '~/links';
+import type { IntegrationsCopy } from '~/i18n/content/types';
+
+export interface Props {
+  locale: Locale;
+  copy: IntegrationsCopy;
+}
+
+const { locale, copy } = Astro.props;
+
+const FLOW_ICONS = ['tabler:arrow-down-circle', 'tabler:arrow-up-circle'];
+
+const withIcons = <T extends object>(items: T[] = [], icons: string[]) =>
+  items.map((item, index) => ({ ...item, icon: icons[index] }));
+---
+
+<!-- Hero ************************** -->
+<Hero
+  tagline={copy.hero.tagline}
+  title={copy.hero.title}
+  subtitle={copy.hero.subtitle}
+  actions={[
+    { variant: 'primary', text: copy.hero.ctaPrimary, href: localePath('contact', locale), icon: 'tabler:messages' },
+    { text: copy.hero.ctaSecondary, href: localePath('platform', locale) },
+  ]}
+>
+  <Fragment slot="image">
+    <BrowserFrame url="distro.syncfreight.com" label={copy.frameLabels.integration} isPlaceholder>
+      <IntegrationForm />
+    </BrowserFrame>
+  </Fragment>
+</Hero>
+
+<!-- Note ************************** -->
+
+<Note icon="tabler:plug-connected" title={copy.note.title} description={copy.note.description} />
+
+<!-- Qué se sincroniza ************* -->
+
+<Features
+  tagline={copy.flows.tagline}
+  title={copy.flows.title}
+  columns={2}
+  items={withIcons(copy.flows.items, FLOW_ICONS)}
+/>
+
+<!-- Cómo se configura ************* -->
+
+<Steps2 tagline={copy.setup.tagline} title={copy.setup.title} subtitle={copy.setup.subtitle} items={copy.setup.items} />
+
+<!-- Trazabilidad ****************** -->
+
+<Content isReversed tagline={copy.traceability.tagline} title={copy.traceability.title} items={copy.traceability.items}>
+  <Fragment slot="content">
+    <h3 class="mb-2 text-2xl font-bold tracking-tight sm:text-3xl dark:text-white">{copy.traceability.heading}</h3>
+    {copy.traceability.lead}
+  </Fragment>
+
+  <Fragment slot="image">
+    <BrowserFrame url="distro.syncfreight.com" label={copy.traceability.frameLabel} isPlaceholder>
+      <OrderErp />
+    </BrowserFrame>
+  </Fragment>
+
+  <Fragment slot="bg">
+    <div class="absolute inset-0 bg-primary/5 dark:bg-transparent"></div>
+  </Fragment>
+</Content>
+
+<!-- FAQs ************************** -->
+
+<FAQs title={copy.faqs.title} tagline={copy.faqs.tagline} columns={2} items={copy.faqs.items} />
+
+<!-- CTA *************************** -->
+
+<CallToAction
+  title={copy.cta.title}
+  subtitle={copy.cta.subtitle}
+  actions={[
+    { variant: 'primary', text: copy.cta.primary, href: `mailto:${CONTACT_EMAIL}`, icon: 'tabler:mail' },
+    { text: copy.cta.secondary, href: localePath('platform', locale) },
+  ]}
+/>
