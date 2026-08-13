@@ -123,9 +123,30 @@ mensaje claro si dejan de coincidir (por ejemplo, si se renombra el repositorio)
 
 ### Cambiar a un dominio propio
 
-1. En `src/config.yaml`: `site: 'https://syncdistro.com'` y `base: '/'`.
-2. Crear `public/CNAME` con una sola línea: `syncdistro.com`.
-3. En **Settings → Pages → Custom domain**, indicar el dominio y apuntar el DNS a GitHub Pages.
+Con un dominio propio el sitio se sirve en la **raíz**, no en un subdirectorio, así que hay que
+cambiar el `base`. Si se olvida, todos los enlaces e imágenes darían 404 (el workflow lo detecta y
+falla antes de publicar).
+
+1. **DNS del dominio.** Para un subdominio, un solo registro:
+
+   | Tipo  | Nombre | Valor                        |
+   | ----- | ------ | ---------------------------- |
+   | CNAME | `www`  | `inland-logisitcs.github.io` |
+
+   Para el dominio raíz, cuatro registros A (o un `ALIAS`/`ANAME` a
+   `inland-logisitcs.github.io` si el proveedor lo soporta):
+
+   | Tipo | Nombre | Valor             |
+   | ---- | ------ | ----------------- |
+   | A    | `@`    | `185.199.108.153` |
+   | A    | `@`    | `185.199.109.153` |
+   | A    | `@`    | `185.199.110.153` |
+   | A    | `@`    | `185.199.111.153` |
+
+2. **En el proyecto:** poner `site: 'https://syncdistro.com'` y `base: '/'` en `src/config.yaml`,
+   y crear `public/CNAME` con una sola línea con el dominio.
+3. **En GitHub:** **Settings → Pages → Custom domain**, escribir el dominio y guardar. Cuando
+   GitHub verifique el DNS y emita el certificado, marcar **Enforce HTTPS**.
 
 ---
 
